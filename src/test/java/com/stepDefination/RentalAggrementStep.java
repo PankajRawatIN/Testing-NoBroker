@@ -1,59 +1,73 @@
 package com.stepDefination;
-
-import java.time.Duration;
-import java.util.Set;
-
+ 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.WebElement;
+ 
+import com.pages.RentalAgreementPage;
+import com.setup.SetupDefination;
+ 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
+ 
 public class RentalAggrementStep {
-
-    static WebDriver driver;
-
+ 
+    WebDriver driver;
+    RentalAgreementPage rentalAgreementPage;
+ 
     @Given("the user is on the Home page")
     public void the_user_is_on_the_home_page() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
+        driver = SetupDefination.getDriver();
         driver.get("https://www.nobroker.in/");
+        rentalAgreementPage = new RentalAgreementPage(driver);
     }
-
-    @When("the user clicks on the Rental Aggrement link")
-    public void the_user_clicks_on_the_rental_agreement_link() {
-        driver.findElement(By.xpath("//*[@id='app']/div/div/div[2]/div[2]/div")).click();
-
-        // Switch to the newly opened window
-        String mainWindowHandle = driver.getWindowHandle(); // Store the main window handle
-        Set<String> windowHandles = driver.getWindowHandles(); // Get all window handles
-
-        for (String handle : windowHandles) {
-            if (!handle.equals(mainWindowHandle)) {
-                driver.switchTo().window(handle); // Switch to the new window
-                break;
-            }
-        }
+ 
+    @When("the user clicks on the Rental Agreement")
+    public void the_user_clicks_on_the_rental_agreement() {
+        rentalAgreementPage.clickRentalAgreementLink();
     }
-
-    @Then("the user should be redirected to the Rental Aggrement page")
-    public void the_user_should_be_redirected_to_the_rental_agreement_page(){
-    	
-    	
-    	 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    	driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[2]/div[2]/div[1]/img")).click();
-    	
-      //  Assert.assertTrue(driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[2]/div[2]/div[1]")).isDisplayed(), null);
-        }
-    
+ 
+    @Then("the Next Day Delivery icon should be displayed correctly")
+    public void the_next_day_delivery_icon_should_be_displayed_correctly() {
+        WebElement deliveryIconElement = rentalAgreementPage.getDeliveryIcon();
+        assert deliveryIconElement.isDisplayed() : "Delivery Icon not displayed";
+    }
+ 
+    @Then("the text {string} should be visible")
+    public void the_text_should_be_visible(String expectedText) {
+        WebElement rentalAgreementTextElement = rentalAgreementPage.getRentalAgreementText();
+        assert rentalAgreementTextElement.getText().equals(expectedText) : "Expected text not displayed";
+    }
+ 
+    @Then("the icons for Rental Agreement and Next Day Delivery should be displayed correctly")
+    public void the_icons_for_rental_agreement_and_next_day_delivery_should_be_displayed_correctly() {
+        rentalAgreementPage.verifyIconsDisplayed();
+    }
+ 
+    @Given("the user is on the Rental Agreement page")
+    public void the_user_is_on_the_rental_agreement_page() {
+        WebElement rentalAgreementLink = rentalAgreementPage.getRentalAgreementLink();
+        assert rentalAgreementLink.isDisplayed() : "Rental Agreement page not displayed";
+    }
+ 
+    @When("the user clicks on the Home icon")
+    public void the_user_clicks_on_the_home_icon() {
+        rentalAgreementPage.navigateToHomePage();
+    }
+ 
+    @Then("the user should be redirected to the Home page")
+    public void the_user_should_be_redirected_to_the_home_page() {
+        WebElement homePageHeader = driver.findElement(By.tagName("h1"));
+        assert homePageHeader.getText().equals("Welcome to Home Page") : "User not redirected to Home page";
+    }
+    @Then("the user should see Rental Agreement and Next Day Delivery icons displayed correctly")
+    public void the_user_should_see_rental_agreement_and_next_day_delivery_icons_displayed_correctly() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
     @Then("close the browser")
     public void close_the_browser() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }}
-  
-
+        SetupDefination.quitDriver();
+    }
+}
