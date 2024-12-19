@@ -31,3 +31,6 @@ Feature: Filter Properties by Availability and BHK Type
     #And I select "6 BHK" as the BHK type
     #And I click on the "Search" button
     #Then I should see an error message saying "Invalid BHK type"
+    
+    
+    #New Changes
