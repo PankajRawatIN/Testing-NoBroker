@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
-Build-Jdk-Spec: 23
+Built-By: mobahaud
+Build-Jdk: 17.0.12
 Created-By: Maven Integration for Eclipse
 
