@@ -148,7 +148,7 @@ public class RentReceiptSteps {
     
     
     
-   // Scenario: Error for missing tenant name
+   // Scenario: Error for missing tenant name--------------------------------------------------------------------------
     
 //    @Given("I navigated to the Online Rent Receipt Generator page using {string} browser")
 //    public void iNavigateToRentReceiptGeneratorPage1(String browser) throws Exception {
@@ -235,11 +235,55 @@ public class RentReceiptSteps {
 
     @Then("I should see an error message saying {string}")
     public void iShouldSeeErrorMessage(String expectedErrorMessage) throws InterruptedException {
-        String actualErrorMessage = rentReceiptPage.getErrorMessage();
+        String actualErrorMessage = rentReceiptPage.fieldRequiredErrorMessage();
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage, 
             "Error message did not match the expected value.");
         System.out.println("Test Passed: Error message displayed correctly - " + actualErrorMessage);
-    } 
+        
+        driver.quit();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+   // Scenario: Verifiy the explore now content---------------------------------------------------------
+    
+    @When("I get to Explore Now page")
+    public void iGetToExploreNowPage() throws Exception {
+        
+    	rentReceiptPage.getToExplorePage();
+        
+    }
+
+    @And("I verify the title of explore now")
+    public void iVerifyTheTitleOfExploreNow() {
+        String expectedTitle = "Create Rental Agreement"; // Replace with actual title of the Explore Now page
+        String actualTitle = rentReceiptPage.getExplorePageTitle();
+
+        Assert.assertEquals(actualTitle, expectedTitle, "Page title does not match for Explore Now page.");
+        System.out.println("Verified page title successfully: " + actualTitle);
+        
+        
+    }
+
+    @And("I click on the explore button")
+    public void iClickOnTheExploreButton() throws InterruptedException {
+        rentReceiptPage.clickExploreButton();
+        System.out.println("Clicked on the Explore button successfully.");
+    }
+
+//    @And("I verify the explore button")
+//    public void iVerifyTheExploreButton() {
+//        // Validate that the Explore button is visible and enabled
+//        Assert.assertTrue(rentReceiptPage.getExploreButton().isDisplayed(), "Explore button is not displayed.");
+//        Assert.assertTrue(rentReceiptPage.getExploreButton().isEnabled(), "Explore button is not enabled.");
+//
+//        System.out.println("Verified Explore button is displayed and enabled.");
+//    }
     
     
 }

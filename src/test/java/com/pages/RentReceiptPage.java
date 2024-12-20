@@ -32,7 +32,11 @@ public class RentReceiptPage {
     private String datePickerXpathTemplate = "//*[@id='%s']/div/div[2]/div/div[2]/div[2]/div[%d]/div[%d]";
     private By generateButtonLocator = By.xpath("//*[@id='rentrecipt-form']/button");
     private By pdfDownloadLocator = By.xpath("//*[@id=\"app\"]/div/div/div[1]/button");
-    private By errorMessageLocator = By.xpath("//*[@id=\"rentrecipt-form-tenant_name-nbInput-container\"]/div/div");
+    private By nameFieldErrorMessageLocator = By.xpath("//*[@id=\"rentrecipt-form-tenant_name-nbInput-container\"]/div/div");
+//    private By dateFieldErrorMessageLocator = By.xpath("//*[@id=\"rentrecipt-form-tenant_name-nbInput-container\"]/div/div");
+    private By explorePage = By.xpath("(//div[@class='flex gap-2 mt-4'])[1]"); // Adjust tag as per actual HTML structure
+    private By exploreTitle = By.xpath("//*[@id=\"app\"]/div/div/div[1]/div[3]/div[1]/div[1]/div/div[1]"); // Replace with actual locator (id, class, etc.)
+    private By getExploreButton = By.cssSelector("body > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > button:nth-child(3)");
     
     
     // Actions
@@ -111,10 +115,34 @@ public class RentReceiptPage {
         }
     }
     
-    public String getErrorMessage() throws InterruptedException {
+    public String fieldRequiredErrorMessage() throws InterruptedException {
     	Thread.sleep(5000);
-        WebElement errorMessage = wait.until(ExpectedConditions.presenceOfElementLocated(errorMessageLocator));
+        WebElement errorMessage = wait.until(ExpectedConditions.presenceOfElementLocated(nameFieldErrorMessageLocator));
         return errorMessage.getText();
+    }
+    
+    
+
+    public void getToExplorePage() {
+        
+    	WebElement explorePageElement = wait.until(ExpectedConditions.presenceOfElementLocated(explorePage));
+    	
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", explorePageElement);
+    	
+    }
+
+    public String getExplorePageTitle() {
+        
+    	return driver.findElement(exploreTitle).getText();
+    	
+    }
+
+    public void clickExploreButton() throws InterruptedException {
+       
+    	Thread.sleep(5000);
+    	driver.findElement(getExploreButton).click();
+    	
     }
     
     

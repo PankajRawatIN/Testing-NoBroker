@@ -24,7 +24,6 @@ Feature: Online Rent Receipt Generator
 	  
 	Scenario: Error for missing tenant name
 	
-#		Given I navigated to the Online Rent Receipt Generator page using "chrome" browser
 	  When I leave the tenant name field empty
 	  And I entered "Jane Smith" as the owner name
     And I entered "15000" as the rent amount
@@ -34,18 +33,17 @@ Feature: Online Rent Receipt Generator
 	  And I entered "abc123@gmail.com" as the email address
 	  And I clicked on the "Generate Rent Receipt Now" button
 	  Then I should see an error message saying "This is required field"
-	
+		
 	 
-#	Scenario: Error for invalid rent amount
-#	
-#	  When I enter "John Doe" as the tenant name
-#	  And I enter "Jane Smith" as the landlord name
-#	  And I enter "-5000" as the rent amount
-#	  And I select "January 2024" as the start month and "December 2024" as the end month
-#	  And I click on the "Generate Receipt" button
-#	  Then I should see an error message saying "Rent amount must be a positive number"
-#	
-#	 
+	Scenario: Verifiy the explore now content
+	
+	  When I get to Explore Now page
+	  And I verify the title of explore now
+	  And I click on the explore button
+#	  And I verify the explore button
+	  
+	  
+ 
 #	Scenario: Generate receipt with all optional fields filled
 #	
 #	  When I enter "John Doe" as the tenant name
