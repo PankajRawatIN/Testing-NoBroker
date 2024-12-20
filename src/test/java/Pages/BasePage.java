@@ -1,5 +1,7 @@
 package Pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -7,13 +9,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
 
-import Setup.BaseSteps;
+
 
 public class BasePage {
 	 protected WebDriver driver;
-	 BaseSteps base1;
+	// BaseSteps base1;
 	    // Constructor to initialize WebDriver (receive it from the test)
 	    public BasePage(WebDriver driver) {
 	    	

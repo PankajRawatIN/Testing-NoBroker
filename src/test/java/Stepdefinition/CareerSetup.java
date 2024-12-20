@@ -1,10 +1,15 @@
 package Stepdefinition;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.parameters.PropertiesReader;
+
 import Pages.BasePage;
+import Pages.BlogPage;
 import Pages.CareerPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -19,15 +24,20 @@ public class CareerSetup {
 	
 	BasePage basepage;
 	CareerPage careerpage;
+	BlogPage blogpage;
+	PropertiesReader propertiesReader=new PropertiesReader();
 	WebDriver driver;
 	//BaseSteps base;
 	@Before
 	public void setup() {
 		driver = new ChromeDriver();  // Initialize WebDriver (you can configure it as per your setup)
 		driver.manage().window().maximize();  // Maximize window if needed
+		basepage = new BasePage(driver);
+		careerpage = new CareerPage(driver);
+		blogpage =new BlogPage(driver);
 	}
 
-	// Quit WebDriver after all scenarios are finished
+	 //Quit WebDriver after all scenarios are finished
 	@After
 	public void tearDown() {
 		if (driver != null) {
@@ -43,10 +53,10 @@ public class CareerSetup {
 		// Get WebDriver instance from BaseSteps
 		//driver = new ChromeDriver();  // Initialize WebDriver (you can configure it as per your setup)
 		//driver.manage().window().maximize();
-		driver.get("https://www.nobroker.in/"); 
+		driver.get(propertiesReader.getProperty("homepage.url")); 
 		
-		basepage = new BasePage(driver);
-		careerpage = new CareerPage(driver);
+//		basepage = new BasePage(driver);
+//		careerpage = new CareerPage(driver);
 
 		
 		System.out.println(driver);
@@ -72,7 +82,8 @@ public class CareerSetup {
 	@Then("I should be navigated to the Career Page")
 	public void i_should_be_navigated_to_the_career_page() {
 		
-		careerpage.isnavigated();
+		String url=careerpage.isnavigated();
+		assertTrue("URL did not navigate to the career page", url.contains("careers"));
 	}
 
 	@Then("I should see the {string} text on the Career Page")
@@ -81,7 +92,7 @@ public class CareerSetup {
 		careerpage.gettext();
 
 		
-		driver.quit();
+		//driver.quit();
 	}
 	
 	@Given("I am on the Careerpage")
@@ -91,10 +102,10 @@ public class CareerSetup {
 		
 		//driver = new ChromeDriver();  // Initialize WebDriver (you can configure it as per your setup)
 		//driver.manage().window().maximize();
-		driver.get("https://www.nobroker.in/careers"); 
+		driver.get(propertiesReader.getProperty("careerpage.url")); 
 		
-		basepage = new BasePage(driver);
-		careerpage = new CareerPage(driver);
+//		basepage = new BasePage(driver);
+//		careerpage = new CareerPage(driver);
 
 		
 
@@ -112,11 +123,158 @@ public class CareerSetup {
 	@Then("I should be navigated to the LinkedInpage")
 	public void i_should_be_navigated_to_the_linked_inpage() {
 	    
-		careerpage.navigatedToLinkedInPage();
-         String title = driver.getTitle();
+		 String currenturl=careerpage.navigatedToLinkedInPage();
+         //String title = driver.getTitle();
+		assertTrue("URL did not navigate to the linkedinpage for joblist button", currenturl.contains("jobs"));
 		
-		Assert.assertTrue("The NoBroker homepage is not loaded", title.contains("Brokerage"));
+		//Assert.assertTrue("The NoBroker homepage is not loaded", title.contains("Brokerage"));
 		
 	}
+	
+	@When("I click on the See all opertunities Button")
+	public void i_click_on_the_see_all_opertunities_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		careerpage.clickSeeAllOpertunities();
+	}
+
+	@Then("I should be navigated to linkedin page")
+	public void i_should_be_navigated_to_linkedin_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		String currenturl=careerpage.navigatedToLinkedInPage();
+		assertTrue("URL did not navigate to the linkedinpage page", currenturl.contains("jobs"));
+		
+	}
+	
+	@When("I click on the Forward Button")
+	public void i_click_on_the_forward_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		careerpage.clickForwardButton();
+	}
+
+	@Then("I should see the next image displayed")
+	public void i_should_see_the_next_image_displayed() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		String text=careerpage.isNextImageDisplayed();
+		assertTrue("'next Image' is not found on career page", text.contains("Saurabh"));
+				
+	}
+
+	@Then("When I click on the Backward Button")
+	public void when_i_click_on_the_backward_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		careerpage.clickBackwardButton();
+	}
+
+	@Then("I should see the previous image displayed")
+	public void i_should_see_the_previous_image_displayed() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		String text=careerpage.isPreviousImageDisplayed();
+		assertTrue("'next Image' is not found on career page", text.contains("Amit"));
+	
+	}
+	
+	@When("I click on the {string} button in the navigation bar")
+	public void i_click_on_the_button_in_the_navigation_bar(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		careerpage.clickNavigationNoBroker();
+	}
+
+	@Then("I should be navigated to the home page of NoBroker")
+	public void i_should_be_navigated_to_the_home_page_of_no_broker() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		String text=careerpage.isNavigatedToHomePage();
+		assertTrue("'nobroker' is not found on career page", text.contains("NoBrokerage"));
+	}
+
+	@Then("the page URL should contain {string}")
+	public void the_page_url_should_contain(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		String url=careerpage.isHomePageUrl();
+		assertTrue("URL did not navigate to the Home page", url.contains("nobroker"));
+	}
+	
+	//------------------BLOG PAGE----------------------------------------------------------------
+	
+	@When("I select Blogs from the dropdown")
+	public void i_select_blogs_from_the_dropdown() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.clickblog();
+	}
+
+	@Then("I should be navigated to the Blog Page")
+	public void i_should_be_navigated_to_the_blog_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		String url=blogpage.isNavigatedBlockPage();
+		assertTrue("URL did not navigate to the career page", url.contains("blog"));
+	}
+
+	@Given("I am on the blog page")
+	public void i_am_on_the_blog_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		driver.get(propertiesReader.getProperty("blogpage.url")); 
+	}
+
+	@When("I click on the Subscribe to our blogs button")
+	public void i_click_on_the_subscribe_to_our_blogs_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.clickOnSubcribeToBlog();
+	}
+
+	@Then("I got the popup for subscribe")
+	public void i_got_the_popup_for_subscribe() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.validatePopUpForSubscribe();
+	}
+
+	@Then("When I enter the Valid E-MAIL id")
+	public void when_i_enter_the_valid_e_mail_id() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.senddata();
+	}
+
+	@Then("When I select atleast {int} values from the given values")
+	public void when_i_select_atleast_values_from_the_given_values(Integer int1) {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.selectoptions();
+	}
+
+	@Then("When I click on the subscribe now button")
+	public void when_i_click_on_the_subscribe_now_button() {
+	    // Write code here that turns the phrase above into concrete actions
+	   // throw new io.cucumber.java.PendingException();
+		blogpage.subscribeNowButton();
+	}
+
+	@Then("I got the COnfirmation Msg")
+	public void i_got_the_c_onfirmation_msg() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.gotConfirmation();
+	}
+	
+	
+
 
 }

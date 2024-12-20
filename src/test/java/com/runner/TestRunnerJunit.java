@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    features = "src\\test\\resources\\Features\\careers.feature", // Path to the feature files
+    features = "src\\test\\resources\\Features\\blogs.feature", // Path to the feature files
     glue="Stepdefinition"
    
 )
