@@ -1,8 +1,6 @@
 package com.stepDefination;
 
 
-import static org.junit.Assert.assertTrue;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +19,8 @@ public class RentReceiptSteps {
     BaseSteps setup = new BaseSteps();
     WebDriver driver;
     RentReceiptPage rentReceiptPage;
+    
+    String mainPageURL, navigatedPageURL;
 
     @Given("I navigate to the Online Rent Receipt Generator page using {string} browser")
     public void iNavigateToRentReceiptGeneratorPage(String browser) throws Exception {
@@ -254,7 +254,7 @@ public class RentReceiptSteps {
     
     @When("I get to Explore Now page")
     public void iGetToExploreNowPage() throws Exception {
-        
+        mainPageURL = rentReceiptPage.getMainURL();
     	rentReceiptPage.getToExplorePage();
         
     }
@@ -270,21 +270,170 @@ public class RentReceiptSteps {
         
     }
 
-    @And("I click on the explore button")
-    public void iClickOnTheExploreButton() throws InterruptedException {
+//    @And("I click on the explore button")
+//    public void iClickOnTheExploreButton() throws InterruptedException {
+//        rentReceiptPage.clickExploreButton();
+//        System.out.println("Clicked on the Explore button successfully.");
+//    }
+
+    @And("I verify the explore button")
+    public void iVerifyTheExploreButton() throws InterruptedException {
+        // Validate that the Explore button is visible and enabled
+        Assert.assertTrue(rentReceiptPage.isExploreButtonDisplayed().isDisplayed(), "Explore button is not displayed.");
+        
         rentReceiptPage.clickExploreButton();
-        System.out.println("Clicked on the Explore button successfully.");
+        
+        navigatedPageURL = rentReceiptPage.getNavigatedURL();
+//        Assert.assertTrue(rentReceiptPage.isExploreButtonDisplayed().isEnabled(), "Explore button is not enabled.");
+//
+        System.out.println("Verified Explore button is clicked successfully");
+    }
+    
+    @Then("I verify it successfully navigated to another page")
+    public void navigatedToPage() throws InterruptedException {
+    	
+    	Assert.assertNotEquals(mainPageURL, navigatedPageURL, "Pages URL not matched....");
+    	System.out.println("Verified the page are navigated successfully");
+    	
+    	Thread.sleep(5000);
+    	
+    	driver.quit();
+    	
+    }
+    
+    
+    
+    
+    
+    // Scenario: Check the valid phone number--------------------------------------------------------------------
+    
+    
+    @When("I fill {string} as the tenant name")
+    public void iEnterTenantName2(String tenantName) {
+        rentReceiptPage.getTenantNameField().clear();
+        rentReceiptPage.getTenantNameField().sendKeys(tenantName);
     }
 
-//    @And("I verify the explore button")
-//    public void iVerifyTheExploreButton() {
-//        // Validate that the Explore button is visible and enabled
-//        Assert.assertTrue(rentReceiptPage.getExploreButton().isDisplayed(), "Explore button is not displayed.");
-//        Assert.assertTrue(rentReceiptPage.getExploreButton().isEnabled(), "Explore button is not enabled.");
-//
-//        System.out.println("Verified Explore button is displayed and enabled.");
-//    }
+    @And("I fill {string} as the owner name")
+    public void iEnterOwnerName2(String ownerName) {
+        rentReceiptPage.getOwnerNameField().clear();
+        rentReceiptPage.getOwnerNameField().sendKeys(ownerName);
+    }
     
+    @And("I fill {string} as the tenant phone no")
+    public void iEnterTenantNumber(String tenantNumber) {
+    	
+    	rentReceiptPage.getTenantPhoneNoField().clear();
+    	rentReceiptPage.getTenantPhoneNoField().sendKeys(tenantNumber);
+    	
+    }
+    
+    @And("I fill {string} as the owner phone no")
+    public void iEnterOwnerNumber(String ownerNumber) {
+    	
+    	rentReceiptPage.getOwnerPhoneNoField().clear();
+    	rentReceiptPage.getOwnerPhoneNoField().sendKeys(ownerNumber);
+    	
+    }
+
+    @And("I fill {string} as the rent amount")
+    public void iEnterRentAmount2(String rentAmount) {
+        rentReceiptPage.getRentAmountField().clear();
+        rentReceiptPage.getRentAmountField().sendKeys(rentAmount);
+    }
+
+    @And("I fill {string} as the rental property address")
+    public void iEnterRentalAddress2(String rentalAddress) {
+        rentReceiptPage.getRentalAddressField().clear();
+        rentReceiptPage.getRentalAddressField().sendKeys(rentalAddress);
+    }
+
+    @And("I fill {string} as the owner address")
+    public void iEnterOwnerAddress2(String ownerAddress) {
+        rentReceiptPage.getOwnerAddressField().clear();
+        rentReceiptPage.getOwnerAddressField().sendKeys(ownerAddress);
+    }
+
+    @And("I fill start date as the start date and end date as the end date")
+    public void iSelectStartAndEndMonth2() throws InterruptedException {
+    	
+    	rentReceiptPage.getStartDateField().click();
+        rentReceiptPage.selectDate("rentrecipt-form-from_date-nbInput", 3, 3); // Example: 3rd row, 3rd column
+
+        // Pause for UI rendering
+        Thread.sleep(1000);
+
+        // Open the end date picker and select a date
+        rentReceiptPage.getEndDateField().click();
+        rentReceiptPage.selectDate("rentrecipt-form-to_date-nbInput", 4, 4); // Example: 4th row, 4th column
+
+        System.out.println("Start and End Dates have been selected successfully.");
+        
+    }
+
+    @And("I fill {string} as the email address")
+    public void iEnterEmailAddress2(String emailAddress) {
+        rentReceiptPage.getEmailField().clear();
+        rentReceiptPage.getEmailField().sendKeys(emailAddress);
+    }
+    
+    @Then("I verify the phone numbers filled in fields")
+    public void verifyPhoneNo() throws InterruptedException {
+    	
+    	boolean validTenantPhoneNumber = rentReceiptPage.validatePhoneNumber(rentReceiptPage.getTenantPhoneNoField());
+    	Assert.assertTrue(validTenantPhoneNumber, "Invalid Tenant's Phone Number...");
+    	
+    	boolean validOwnerPhoneNumber = rentReceiptPage.validatePhoneNumber(rentReceiptPage.getOwnerPhoneNoField());
+    	Assert.assertTrue(validOwnerPhoneNumber, "Invalid Phone Number...");
+    	
+    	
+    	rentReceiptPage.ifValidPhoneNumber(validTenantPhoneNumber && validOwnerPhoneNumber);
+//    	rentReceiptPage.ifValidPhoneNumber(validTenantPhoneNumber, "Owner's Phone");
+    	
+    	Thread.sleep(5000);
+    	
+    	driver.quit();
+    	
+    }
+    
+    
+    
+    
+    
+    
+    // Scenario: Check the Frequently Asked Questions page--------------------------------------------------------------------------
+    
+    @When("I move to FAQS slide")
+    public void moveToFAQS() {
+    	
+    	rentReceiptPage.locateFaqs();
+    	
+    }
+    
+    @And("I click on the FAQ point")
+    public void clickOnTheFAQ() throws InterruptedException {
+    	
+    	rentReceiptPage.clickOnFaq();
+    	
+    }
+    
+    @Then("I check content of FAQ is display")
+    public void checkContentFaq() throws InterruptedException {
+    	
+    	rentReceiptPage.checkContent();
+    	
+    }
+    
+    
+    @And("I verify the content of FAQ is correct")
+    public void verifyTheFaqContent() throws InterruptedException {
+    	
+    	rentReceiptPage.verifyContent();
+    	Thread.sleep(5000);
+    	
+    	driver.quit();
+    	
+    }
     
 }
 

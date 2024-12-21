@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class RentReceiptPage {
     WebDriver driver;
@@ -16,19 +17,21 @@ public class RentReceiptPage {
 
     public RentReceiptPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     // Locators
-    public By tenantNameField = By.id("rentrecipt-form-tenant_name-nbInput");
-    public By ownerNameField = By.id("rentrecipt-form-owner_name-nbInput");
-    public By rentAmountField = By.id("rentrecipt-form-rent-nbInput");
-    public By rentalAddressField = By.id("rentrecipt-form-tenant_address-nbInput");
-    public By ownerAddressField = By.id("rentrecipt-form-owner_address-nbInput");
-    public By emailField = By.id("rentrecipt-form-email-nbInput");
-    public By startDateField = By.xpath("//*[@id='rentrecipt-form-from_date-nbInput']/div/div[1]/div/input");
-    public By endDateField = By.xpath("//*[@id='rentrecipt-form-to_date-nbInput']/div/div[1]/div/input");
-    public By generateButton = By.xpath("//*[@id='rentrecipt-form']/button");
+    
+//    private By pageTitleName = By.xpath("(//span[contains(@class,\"'pt-0.4p'\")])[1]");
+    private By tenantNameField = By.id("rentrecipt-form-tenant_name-nbInput");
+    private By ownerNameField = By.id("rentrecipt-form-owner_name-nbInput");
+    private By rentAmountField = By.id("rentrecipt-form-rent-nbInput");
+    private By rentalAddressField = By.id("rentrecipt-form-tenant_address-nbInput");
+    private By ownerAddressField = By.id("rentrecipt-form-owner_address-nbInput");
+    private By emailField = By.id("rentrecipt-form-email-nbInput");
+    private By startDateField = By.xpath("//*[@id='rentrecipt-form-from_date-nbInput']/div/div[1]/div/input");
+    private By endDateField = By.xpath("//*[@id='rentrecipt-form-to_date-nbInput']/div/div[1]/div/input");
+//    private By generateButton = By.xpath("//*[@id='rentrecipt-form']/button");
     private String datePickerXpathTemplate = "//*[@id='%s']/div/div[2]/div/div[2]/div[2]/div[%d]/div[%d]";
     private By generateButtonLocator = By.xpath("//*[@id='rentrecipt-form']/button");
     private By pdfDownloadLocator = By.xpath("//*[@id=\"app\"]/div/div/div[1]/button");
@@ -36,10 +39,34 @@ public class RentReceiptPage {
 //    private By dateFieldErrorMessageLocator = By.xpath("//*[@id=\"rentrecipt-form-tenant_name-nbInput-container\"]/div/div");
     private By explorePage = By.xpath("(//div[@class='flex gap-2 mt-4'])[1]"); // Adjust tag as per actual HTML structure
     private By exploreTitle = By.xpath("//*[@id=\"app\"]/div/div/div[1]/div[3]/div[1]/div[1]/div/div[1]"); // Replace with actual locator (id, class, etc.)
+    
+    private By exploreButton  = By.xpath("(//button[@type='button'][normalize-space()='Explore Now'])[1]");
     private By getExploreButton = By.cssSelector("body > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(4) > div:nth-child(1) > button:nth-child(3)");
+    
+    private By tenantPhoneNoField = By.xpath("//*[@placeholder=\"Tenant's Phone\"]");
+    private By ownerPhoneNoField = By.xpath("//*[@placeholder=\"Owner's Phone\"]");
+    
+    private By faqsPageLocate = By.xpath("(//div[@class='heading-4 font-semi-bold text-left nb__3zTIc'])[1]");
+    private By locateOneOfFaq = By.className("nb__1aa1A");
+    private By locateFaqContent = By.className("nb__3U-Ey");
+    
+    // Variables
+    String mainPageURL, navigatedPageURL;
+    String phoneRegex = "^[+]?\\d{10,13}$";
+    String actualContent;
+    String expectedContent = "Not having a rent receipt can jeopardise your ability "
+    		+ "to prove timely rent payments, potentially leading to wrongful eviction"
+    		+ " claims. Additionally, in India, lacking such receipts can hinder"
+    		+ " your eligibility to claim HRA deductions, subsequently increasing your "
+    		+ "tax liability.";
     
     
     // Actions
+    public String getMainURL() {
+    	mainPageURL = driver.getCurrentUrl();
+    	return mainPageURL;
+    }
+    
     public WebElement getTenantNameField() {
         return driver.findElement(tenantNameField);
     }
@@ -89,16 +116,18 @@ public class RentReceiptPage {
 
             try {
                 // Try to click the button
+//            	Thread.sleep(6000);
                 button.click();
             } catch (ElementClickInterceptedException e) {
                 System.out.println("Element click intercepted. Attempting JavaScript click...");
 
                 // Click using JavaScript
+//                Thread.sleep(5000);
                 js.executeScript("arguments[0].click();", button);
             }
 
             // Wait for post-click actions
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } else {
             System.out.println("Button not found or incorrect button text.");
         }
@@ -137,11 +166,114 @@ public class RentReceiptPage {
     	return driver.findElement(exploreTitle).getText();
     	
     }
+    
+    public WebElement isExploreButtonDisplayed() {
+    	
+    	return driver.findElement(exploreButton);
+    			
+    }
 
     public void clickExploreButton() throws InterruptedException {
        
     	Thread.sleep(5000);
+    	
     	driver.findElement(getExploreButton).click();
+    	
+    	// bug in website --- can not refresh when click on the button so we need to refresh it in automation
+    	driver.navigate().refresh();
+    	
+    }
+    
+    public String getNavigatedURL() {
+    	
+    	navigatedPageURL = driver.getCurrentUrl();
+    	return navigatedPageURL;
+    	
+    }
+    
+    public WebElement getTenantPhoneNoField() {
+        return driver.findElement(tenantPhoneNoField);
+    } 
+    
+    
+    public WebElement getOwnerPhoneNoField() {
+    	return driver.findElement(ownerPhoneNoField);
+    } 
+    
+    
+    public boolean validatePhoneNumber(WebElement phoneFieldAddress) {
+
+        // Retrieve the entered phone number
+        String phoneNumber = phoneFieldAddress.getAttribute("value");
+
+        // Validate the phone number using the method
+        return isValidPhoneNumber(phoneNumber);
+    }
+    
+    
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        
+        return phoneNumber.matches(phoneRegex);
+    }
+
+    
+    public void ifValidPhoneNumber(boolean phoneNumber) throws InterruptedException {
+    	
+    	if(phoneNumber == true) {
+    		Thread.sleep(5000);
+    		clickGenerateReceiptButton("Generate Rent Receipt Now");
+    	}
+    	
+    	else {
+    		System.out.println("Enter vaild phone number.....");
+    	}
+    	
+    }
+    
+    
+    public void locateFaqs() {
+    	
+    	WebElement faqsPage = driver.findElement(faqsPageLocate);
+    	
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", faqsPage);
+    	
+    }
+    
+    public void clickOnFaq() throws InterruptedException {
+    	
+    	Thread.sleep(6000);
+    	WebElement FaqElement = driver.findElement(locateOneOfFaq);
+    	FaqElement.click();
+    	Thread.sleep(5000);
+    	
+    	Assert.assertTrue(FaqElement.isDisplayed(), "FAQ is not display...");
+    	
+//    	Assert.assertTrue(FaqElement.isEnabled(), "FAQ is not display...");
+    	
+    	
+//    	FaqElement.isEnabled();
+    }
+    
+    
+    public void checkContent() throws InterruptedException {
+    	
+    	Thread.sleep(5000);
+    	WebElement FaqElement = driver.findElement(locateOneOfFaq);
+    	FaqElement.click();
+    	Thread.sleep(5000);
+    	WebElement FaqContent = driver.findElement(locateFaqContent);
+    	
+    	Assert.assertTrue(FaqContent.isDisplayed(), "content is not display...");
+    	
+    }
+    
+    
+    
+    public void verifyContent() {
+    	
+    	actualContent = driver.findElement(locateFaqContent).getText();
+    	Assert.assertEquals(actualContent, expectedContent);
     	
     }
     
