@@ -1,4 +1,4 @@
-package com.stepDefination;
+package com.StepDefinition;
 
 
 import static org.testng.Assert.assertEquals;
@@ -15,7 +15,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,24 +24,24 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 		WebDriverWait wait;
 		WebDriver driver;
 		
-		@Before
-		public void setUP()
-		{
-			driver = new ChromeDriver();
-			driver.manage().window().maximize();
-			driver.get(" https://www.nobroker.in");
-			
-		}
+//		@Before
+//		public void setUP()
+//		{
+//			driver = new ChromeDriver();
+//			driver.manage().window().maximize();
+//			driver.get(" https://www.nobroker.in");
+//			
+//		}
 		
 //Scenario1-------------------------------------------------------------------------------------------------------------------------------------
 		
 		@Given("I am on the homepage of NoBroker")
 		public void i_am_on_the_homepage_of_no_broker() 
 		{
-			// Write code here that turns the phrase above into concrete actions
-//		    driver = new ChromeDriver();
-//		    driver.manage().window().maximize();
-//	        driver.get("https://www.nobroker.in");
+//			 Write code here that turns the phrase above into concrete actions
+		    driver = new ChromeDriver();
+		    driver.manage().window().maximize();
+	        driver.get("https://www.nobroker.in");
 		}
 
 		@When("I click on the Main Menu button")
@@ -73,6 +72,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 			ChromeOptions options = new ChromeOptions();
 	        options.addArguments("--disable-notifications");
 	        options.addArguments("--start-maximized"); // Start browser maximized
+	        
 	        WebDriverManager.chromedriver().setup();
 	        driver = new ChromeDriver(options);
 	        wait= new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -127,6 +127,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 			 
 		    JavascriptExecutor js = (JavascriptExecutor) driver;
 		     // Wait for the "Our Top Interior Designers" heading
+		    
 		             WebElement startPostingButton = wait.until(ExpectedConditions.presenceOfElementLocated(
 		                     By.xpath("/html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[4]/button[1]")));
 		             
@@ -145,33 +146,101 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 //		-------------------------------------------------------------------------------------------------------------------------------------------
 //		Scenario 3:--------------------------------------------------------------------------------------------------------------------------------
 //		
-//		@Given("I am on Post Your Property Homepage")
+		@Given("I am on a Post the Property Homepage")
 	    public void i_am_on_post_your_property_homepage() 
 	    {
-//	        // Initialize the WebDriver
-//	        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
-//	        driver = new ChromeDriver();
-
-	    	 // Write code here that turns the phrase above into concrete actions
-			WebElement mainMenuButton2 = driver.findElement(By.xpath("//div[img[@alt='hamburger'] and text()='Menu']"));
-			mainMenuButton2.click();
+			
+			ChromeOptions options = new ChromeOptions();
+	        options.addArguments("--disable-notifications");
+	        options.addArguments("--start-maximized"); // Start browser maximized
+	        
+	        WebDriverManager.chromedriver().setup();
+	        driver = new ChromeDriver(options);
+	        wait= new WebDriverWait(driver, Duration.ofSeconds(30));
+		    // Write code here that turns the phrase above into concrete actions
+			//driver = new ChromeDriver();
+	        driver.manage().window().maximize();
+	        driver.get("https://www.nobroker.in/list-your-property-for-rent-sale?nbFr=Home_page"); 
+	        
 	    }
 
-	    @When("I enter invalid {string}")
-	    public void i_enter_invalid(String invalidInput) 
-	    {
-	        // Locate the input field and enter invalid data
-	        WebElement emailField = driver.findElement(By.xpath("//input[@type='email']")); // Adjust the locator as needed
-	        emailField.clear();
-	        emailField.sendKeys(invalidInput);
+//	    @When("I enter invalid of property such as {string}, {string} and {string}")
+//	    public void i_enter_invalid(String Name,String EmailId,String phoneNumber) 
+//	    {
+//	    	
+//	        // Locate the input field and enter invalid data
+//	    	WebElement nameField1 = driver.findElement(By.xpath("//input[@id='userName']")); // Update with the actual ID or locator
+//	        nameField1.sendKeys(Name);
+//	        
+//	        WebElement emailField1 = driver.findElement(By.xpath("//input[@type='email']")); // Adjust the locator as needed
+//	        emailField1.clear();
+//	        emailField1.sendKeys(EmailId);
+//	        
+//	        
+//	        WebElement mobileField1 = driver.findElement(By.xpath("//input[@id='userPhone']")); // Update with the actual ID or locator
+//	        mobileField1.sendKeys(phoneNumber);
+//	        
+//	        WebElement cityField1 = driver.findElement(By.xpath("//div[@class='css-1hwfws3 nb-select__value-container']/div[@class='css-151xaom-placeholder nb-select__placeholder']"));
+//	        cityField1.click();)
+//	        
+//	    }
+	    @When("I enter invalid of property such as {string}, {string} and {string}")
+	    public void i_enter_invalid(String Name, String EmailId, String phoneNumber) {
+	        try {
+	            // Locate and enter Name
+	            WebElement nameField1 = driver.findElement(By.xpath("//input[@id='userName']"));
+	            nameField1.clear(); // Clear the field before entering
+	            nameField1.sendKeys(Name);
+
+	            // Locate and enter Email ID
+	            WebElement emailField1 = driver.findElement(By.xpath("//input[@type='email']"));
+	            emailField1.clear(); // Clear the field before entering
+	            emailField1.sendKeys(EmailId);
+
+	            // Locate and enter Phone Number
+	            WebElement mobileField1 = driver.findElement(By.xpath("//input[@id='userPhone']"));
+	            mobileField1.clear(); // Clear the field before entering
+	            mobileField1.sendKeys(phoneNumber);
+
+	            // Locate and click City dropdown (optional, validate this XPath)
+	            WebElement cityField1 = driver.findElement(By.xpath("//div[@class='css-1hwfws3 nb-select__value-container']/div[@class='css-151xaom-placeholder nb-select__placeholder']"));
+	            if (cityField1.isDisplayed()) {
+	                cityField1.click();
+	            } else {
+	                System.out.println("City field is not visible on the page.");
+	            }
+	            
+	            WebElement selectField = driver.findElement(By.xpath("/html/body/div[3]/div/div/div/div[1]/div/div[2]/div[2]/div/div[1]/div[4]/div/div/div[2]/div/div[1]"));
+		        selectField.click();
+		        Thread.sleep(5000);
+		        
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            throw new RuntimeException("Error occurred in i_enter_invalid method");
+	        }
 	    }
+		
+
+
 
 	    @When("I click on Start Posting Your Adds for Free button On Webpage")
-	    public void i_click_on_start_posting_your_adds_for_free_button_on_webpage() 
+	    public void i_click_on_start_posting_your_adds_for_free_button_on_webpage() throws InterruptedException 
 	    {
 	        // Locate the button and click it
-	        WebElement postButton = driver.findElement(By.xpath("html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[4]/button[1]")); // Replace with the actual button ID or locator
-	        postButton.click();
+//	        WebElement postButton = driver.findElement(By.xpath("html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[4]/button[1]")); // Replace with the actual button ID or locator
+//	        postButton.click();
+	    	
+	    	JavascriptExecutor js = (JavascriptExecutor) driver;
+		     // Wait for the "Our Top Interior Designers" heading
+		             WebElement startPostingButton = wait.until(ExpectedConditions.presenceOfElementLocated(
+		                     By.xpath("/html[1]/body[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/div[4]/button[1]")));
+		             
+		             // Scroll into view
+		             js.executeScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", startPostingButton);
+		             
+		             Thread.sleep(5000);
+	
+		     startPostingButton.click();
 	    }
 
 	    @Then("I should see an error message indicating the invalid field")
@@ -187,6 +256,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 		
 		
 //		-------------------------------------------------------------------------------------------------------------------------------------------
+//	    Scenario 4:--------------------------------------------------------------------------------------------------------------------------------
+	   
+	    
+	    
+	    
+//	    -------------------------------------------------------------------------------------------------------------------------------------------
 		
 //	    WebDriver driver=new ChromeDriver();  // Assuming you have initialized WebDriver elsewhere
 //
