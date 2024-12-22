@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.pages.RentReceiptPage;
+import com.pages.RentReceiptPageFactory;
 import com.setup.BaseSteps;
 
 import io.cucumber.java.en.And;
@@ -18,7 +18,7 @@ public class RentReceiptSteps {
 
     BaseSteps setup = new BaseSteps();
     WebDriver driver;
-    RentReceiptPage rentReceiptPage;
+    RentReceiptPageFactory rentReceiptPage;
     
     String mainPageURL, navigatedPageURL;
 
@@ -31,7 +31,7 @@ public class RentReceiptSteps {
         driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div[1]")).click();
         driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div[2]/a[6]")).click();
         
-        rentReceiptPage = new RentReceiptPage(driver);
+        rentReceiptPage = new RentReceiptPageFactory(driver);
     }
 
     @When("I enter {string} as the tenant name")
@@ -68,10 +68,11 @@ public class RentReceiptSteps {
     public void iSelectStartAndEndMonth() throws InterruptedException {
     	
     	rentReceiptPage.getStartDateField().click();
+//    	rentReceiptPage.getStartDateField();
         rentReceiptPage.selectDate("rentrecipt-form-from_date-nbInput", 3, 3); // Example: 3rd row, 3rd column
 
         // Pause for UI rendering
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         // Open the end date picker and select a date
         rentReceiptPage.getEndDateField().click();
@@ -199,6 +200,7 @@ public class RentReceiptSteps {
     public void iSelectStartAndEndMonth1() throws InterruptedException {
     	
     	rentReceiptPage.getStartDateField().click();
+    	rentReceiptPage.getStartDateField();
         rentReceiptPage.selectDate("rentrecipt-form-from_date-nbInput", 3, 3); // Example: 3rd row, 3rd column
 
         // Pause for UI rendering
@@ -358,10 +360,11 @@ public class RentReceiptSteps {
     public void iSelectStartAndEndMonth2() throws InterruptedException {
     	
     	rentReceiptPage.getStartDateField().click();
+    	rentReceiptPage.getStartDateField();
         rentReceiptPage.selectDate("rentrecipt-form-from_date-nbInput", 3, 3); // Example: 3rd row, 3rd column
 
         // Pause for UI rendering
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         // Open the end date picker and select a date
         rentReceiptPage.getEndDateField().click();

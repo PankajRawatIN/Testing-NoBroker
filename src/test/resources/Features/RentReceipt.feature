@@ -55,17 +55,26 @@ Feature: Online Rent Receipt Generator
 	  And I fill start date as the start date and end date as the end date
 	  And I fill "abc123@gmail.com" as the email address
 	  Then I verify the phone numbers filled in fields
-
-
-
+#
+#
+#
   Scenario: Check the Frequently Asked Questions page
 		
 		When I move to FAQS slide
 		And I click on the FAQ point 
 		Then I check content of FAQ is display
 		And I verify the content of FAQ is correct
-  
- 
+		
+		
+		
+		
+		
+		
+		
+		
+	
+  #---------------------------------------------------------------------------------------------------------
+ #
 #	Scenario: Generate receipt with all optional fields filled
 #	
 #	  When I enter "John Doe" as the tenant name
