@@ -6,10 +6,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 
 import com.setup.SetupDefination;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -36,18 +40,20 @@ public class VerifyNoBrokerSteps {
     public void verifySectionDisplayed(String sectionName) throws InterruptedException {
     	// to scroll ontpt the page until it is visible
     	
-    	WebElement element = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div[6]/div[2]/div[1]/a/img")); // Replace with your element's locator
-
-    	// Cast WebDriver instance to JavascriptExecutor
+    	WebElement element = driver.findElement(By.xpath("//*[@id='app']/div/div/div[6]/div[2]/div[1]/a/img")); 
     	JavascriptExecutor js = (JavascriptExecutor) driver;
 
-    	// Continuously scroll until the element is found
-    	while (!element.isDisplayed()) {
-    	    js.executeScript("arguments[0].scrollIntoView(true);", element);
-    	    Thread.sleep(500); // Optional: add a slight wait
+    	// Wait for the element to be present
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    	wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='app']/div/div/div[6]/div[2]/div[1]/a/img")));
+
+    	// Scroll into view
+    	js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+    	Thread.sleep(500); // Optional delay to allow scrolling animation
+    	Assert.assertTrue(element.isDisplayed(), sectionName + " section is not displayed!");
     	}
-        Assert.assertTrue(element.isDisplayed(), sectionName + " section is not displayed!");
-    }
+       // Assert.assertTrue(element.isDisplayed(), sectionName + " section is not displayed!");
+    
 
     @When("the user clicks on the {string} link")
     public void clickLink(String linkName) {
@@ -68,13 +74,11 @@ public class VerifyNoBrokerSteps {
         Assert.assertTrue(pageSource.contains(expectedContent), "Page content does not include the expected text!");
     }
 
-    @Then("the response status code should be {int}")
-    public void verifyResponseStatusCode(int expectedStatusCode) throws Exception {
-        // Use an HTTP client library like Apache HttpClient or HttpURLConnection to validate status codes.
-        // String currentURL = driver.getCurrentUrl();
-        // int actualStatusCode = getStatusCode(currentURL);
-        // AssertJUnit.assertEquals("Response status code does not match!", expectedStatusCode, actualStatusCode);
+    @And("the URL should navigate to Home Page")
+    public void navigateToHomePage() {
+        driver.get("https://www.nobroker.in/"); // Ensure this URL is correct
     }
+    
 
     @Then("the {string} image should be visible")
     public void verifyImageVisible(String imageName) {
@@ -111,9 +115,9 @@ public class VerifyNoBrokerSteps {
     private String getLinkXpath(String linkName) {
         switch (linkName) {
             case "Avoid Brokers":
-                return "//a[contains(@href, '/about/tenants')]";
-            case "Free Listing":
-                return "//a[contains(@href, '/list-your-property-for-rent-sale')]";
+                return "//*[@id=\"app\"]/div/div/div[6]/div[2]/div[1]/a/img";
+            case "Shortlist without Visit":
+                return "//*[@id=\"app\"]/div/div/div[6]/div[2]/div[3]/a/img";
             default:
                 throw new IllegalArgumentException("Unknown link: " + linkName);
         }
@@ -122,19 +126,20 @@ public class VerifyNoBrokerSteps {
     private String getImageXpath(String imageName) {
         switch (imageName) {
             case "Avoid Brokers":
-                return "//img[contains(@alt, 'Avoid Brokers')]";
-            case "Free Listing":
-                return "//img[contains(@alt, 'Free Listing')]";
+                return "//*[@id=\"app\"]/div/div/div[6]/div[2]/div[1]/a/img";
+            case "Shortlist without Visit":
+                return "//*[@id=\"app\"]/div/div/div[6]/div[2]/div[3]/a/img";
             default:
                 throw new IllegalArgumentException("Unknown image: " + imageName);
         }
     }
 
     // Optional: Handling method for cleanup after tests
-//    @AfterMethod
-//    public void tearDown() {
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//    }
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+   
 }

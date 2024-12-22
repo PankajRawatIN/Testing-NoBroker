@@ -66,7 +66,7 @@ public class FilterPropertyPage {
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		WebElement availabilityOption = wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath("//*[@id='react-select-3-option-2']/div/label/input")));
+				.visibilityOfElementLocated(By.xpath("//*[@id=\"react-select-3-option-2\"]/div/label/span")));
 		availabilityOption.click();
 
 	}
