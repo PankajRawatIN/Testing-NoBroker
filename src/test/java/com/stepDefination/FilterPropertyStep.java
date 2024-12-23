@@ -103,7 +103,7 @@ public class FilterPropertyStep {
 
       // Verify the count of properties displayed matches the expected BHK count
      boolean CorrectBHKCount = filterPropertyPage.verifySpecificBHKCount(string);
-    Assert.assertTrue(CorrectBHKCount , "Yes you landed on correct page");
+    Assert.assertTrue(CorrectBHKCount);
     }
     @Then("close the browserr")
     public void close_the_browser() {  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

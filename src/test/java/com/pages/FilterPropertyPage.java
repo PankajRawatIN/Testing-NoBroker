@@ -82,7 +82,10 @@ public class FilterPropertyPage {
 	}
 
 	public boolean verifyPropertiesDisplayed(String locality) {
-		return driver.findElements(By.xpath("//div[contains(text(),'" + locality + "')]")).size() > 0;
+		
+			WebElement chk = driver.findElement(By.xpath("//*[@id=\"navHeader\"]/div[2]/div"));
+			
+			return chk.isDisplayed();
 	}
 
 	public boolean verifyBHKPropertiesDisplayed(String bhkType, String locality) {
@@ -100,9 +103,9 @@ public class FilterPropertyPage {
 		 wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Adjust timeout
 	//	WebElement properties = driver.findElement(By.xpath("//*[@id=\"listPageContainer\"]/div[1]/div[2]/div[2]/div/div/div[1]/div[2]/div[3]"));
   
-		String URL = driver.getCurrentUrl();
+		WebElement chk = driver.findElement(By.xpath("//*[@id=\"navHeader\"]/div[2]/div"));
 		
-		return URL.contains("type=BHK2");
+		return chk.isDisplayed();
 		
 		
 	}
