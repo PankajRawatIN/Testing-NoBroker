@@ -7,8 +7,11 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    features = "src\\test\\resources\\Features\\blogs.feature", // Path to the feature files
-    glue="Stepdefinition"
+    features = {"src\\test\\resources\\Features\\blogs.feature","src\\test\\resources\\Features\\careers.feature"}, // Path to the feature files
+    glue="Stepdefinition",
+    		plugin = {"pretty",
+    				"html:target\\HtmlReport.html"
+    		}
    
 )
 public class TestRunnerJunit {

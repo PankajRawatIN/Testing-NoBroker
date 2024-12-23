@@ -3,6 +3,8 @@ package Stepdefinition;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -13,6 +15,7 @@ import Pages.BlogPage;
 import Pages.CareerPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 //import Setup.BaseSteps;
 //import dev.failsafe.internal.util.Assert;
 import io.cucumber.java.en.Given;
@@ -39,10 +42,18 @@ public class CareerSetup {
 
 	 //Quit WebDriver after all scenarios are finished
 	@After
-	public void tearDown() {
+	public void doSomethingAfter(Scenario scenario){
+	    // Do something after after scenario
+		if (scenario.isFailed()) {
+		    byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+		    scenario.attach(screenshot, "image/png", "name");
+		}
 		if (driver != null) {
 			driver.quit();  // Close the browser and clean up
 		}
+	}
+	public void tearDown() {
+		
 	}
 	
 	
@@ -243,7 +254,8 @@ public class CareerSetup {
 	public void i_got_the_popup_for_subscribe() {
 	    // Write code here that turns the phrase above into concrete actions
 	    //throw new io.cucumber.java.PendingException();
-		blogpage.validatePopUpForSubscribe();
+		String text=blogpage.validatePopUpForSubscribe();
+		assertTrue("Text not found on BlogPage",text.contains("Get latest"));
 	}
 
 	@Then("When I enter the Valid E-MAIL id")
@@ -271,7 +283,29 @@ public class CareerSetup {
 	public void i_got_the_c_onfirmation_msg() {
 	    // Write code here that turns the phrase above into concrete actions
 	    //throw new io.cucumber.java.PendingException();
-		blogpage.gotConfirmation();
+		String text=blogpage.gotConfirmation();
+		assertTrue("Subscription not done",text.contains("You're all set!"));
+	}
+	
+	@Then("When I select less options from the given options")
+	public void when_i_select_less_options_from_the_given_options() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.selectlessoptions();
+	}
+
+	@Then("I will get a alert Msg.")
+	public void i_will_get_a_alert_msg() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String text=blogpage.gotalertmsg();
+		assertTrue("you did not get the text from alert",text.contains("Please select"));
 	}
 	
 	
