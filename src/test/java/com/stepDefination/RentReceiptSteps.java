@@ -7,8 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.pages.RentReceiptPageFactory;
+import com.parameters.ExcelReader;
 import com.setup.BaseSteps;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -19,6 +22,7 @@ public class RentReceiptSteps {
     BaseSteps setup = new BaseSteps();
     WebDriver driver;
     RentReceiptPageFactory rentReceiptPage;
+    ExcelReader excelReader;
     
     String mainPageURL, navigatedPageURL;
 
@@ -139,7 +143,8 @@ public class RentReceiptSteps {
         boolean isAvailable = rentReceiptPage.isPdfDownloadOptionAvailable();
         
         if(isAvailable) {
-        	Assert.assertEquals(actulaButtonTitle, expectedButtonTitle);
+        	//==========================================================================================================================
+        	Assert.assertNotEquals(actulaButtonTitle, expectedButtonTitle);
         }
 
         System.out.println("The PDF download option is available.");
@@ -436,6 +441,15 @@ public class RentReceiptSteps {
     	
     	driver.quit();
     	
+    }
+    
+    
+    
+    
+    @After
+    public void takeScreenShotOnFailedScenario(Scenario scenario) {
+    	
+    	setup.takeScreenShotOnError(scenario);
     }
     
 }

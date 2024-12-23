@@ -1,17 +1,18 @@
 package com.setup;
 
-import java.time.Duration;
-
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
+
 
 public class BaseSteps {
 
-	protected static WebDriver driver;
-
-
+	protected WebDriver driver;
+	
     public WebDriver setupBrowser(String browser) {
         if (browser.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win64\\chromedriver.exe");
@@ -25,11 +26,23 @@ public class BaseSteps {
         driver.get(url);
     }
 
+    
+    public void takeScreenShotOnError(Scenario scenario){
+	    // Do something after after scenario
+		if (scenario.isFailed()) {
+		    byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+		    scenario.attach(screenshot, "image/png", "name");
+		    System.out.println("jbdvkjsbvkjbskjbvksbevk................");
+		}
+    }
+    
     public void teardown() {
         if (driver != null) {
             driver.quit();
         }
     }
+    
+    
 
 //	public WebDriver setupBrowser(String browser) throws Exception {
 //		if (browser.equalsIgnoreCase("ie")) {
