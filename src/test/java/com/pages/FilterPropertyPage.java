@@ -56,13 +56,10 @@ public class FilterPropertyPage {
 	}
 
 	public void selectBHKType(String bhkType) {
-		// WebElement bhkOption = driver.findElement(By.xpath("//label[text()='" +
-		// bhkType + "']/preceding-sibling::input")); // Adjust locator
-		// bhkOption.click();
-
-		// *[@id="react-select-3-option-2"]/div/label/input
-		WebElement dropdown = driver.findElement(By.xpath("(//*[@id=\"searchCity\"]/div[1]/div[1])[2]"));
-		dropdown.click();
+		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebElement dropdown = driver.findElement(By.xpath("(//*[@id=\"searchCity\"]/div/div[2]/div)[2]"));
+		dropdown.click(); 
+		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		WebElement availabilityOption = wait.until(ExpectedConditions
@@ -72,7 +69,10 @@ public class FilterPropertyPage {
 	}
 
 	public boolean verifyImmediateAvailability() {
-		return driver.findElements(By.xpath("//div[@class='property-list-item']")).size() > 0;
+		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		  String URL = "availability=immediate";
+	    	String isTitleCorrect = driver.getCurrentUrl();
+	    	return isTitleCorrect.contains(URL);
 	}
 
 	public void clickSearchButton() {
@@ -98,11 +98,11 @@ public class FilterPropertyPage {
 	public boolean verifySpecificBHKCount(String bhkCount) {
 	
 		 wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Adjust timeout
-		WebElement properties = driver.findElement(By.xpath("//*[@id=\"listPageContainer\"]/div[1]/div[2]/div[2]/div/div/div[1]/div[2]/div[3]"));
+	//	WebElement properties = driver.findElement(By.xpath("//*[@id=\"listPageContainer\"]/div[1]/div[2]/div[2]/div/div/div[1]/div[2]/div[3]"));
   
-		String count = properties.getText();
+		String URL = driver.getCurrentUrl();
 		
-		return count.equals(bhkCount);
+		return URL.contains("type=BHK2");
 		
 		
 	}

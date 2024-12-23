@@ -14,9 +14,11 @@ public class Hooks {
 	        driver = SetupDefination.initializeDriver();
 	    }
 
-//	    @After
-//	    public void tearDown() {
-//	        SetupDefination.quitDriver();
-//	    }
+	    @After
+	    public void tearDown() {
+	    
+	     SetupDefination.quitDriver(); 	
+	    
 
+	    }
 }
