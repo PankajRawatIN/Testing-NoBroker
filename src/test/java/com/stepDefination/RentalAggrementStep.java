@@ -4,8 +4,10 @@ import java.time.Duration;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,6 +15,7 @@ import org.testng.Assert;
 import com.pages.RentalAgreementPage;
 import com.setup.SetupDefination;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,7 +25,17 @@ public class RentalAggrementStep {
     WebDriver driver;
     RentalAgreementPage rentalAgreementPage;
     WebDriverWait wait;
+    public WebElement waitForElementVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15)); // Increase timeout as needed
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 
+    // Method to click on the element after waiting for visibility
+    public void clickOnRentalAgreement() {
+        By rentalAgreementLocator = By.xpath("//*[@id='modalContent']/div/div/div[2]/div[2]/div[3]");
+        WebElement rentalAgreementElement = waitForElementVisible(rentalAgreementLocator);
+        rentalAgreementElement.click();
+    }
     //Background
     @Given("the user is on the Home page")
     public void the_user_is_on_the_home_page() {
@@ -66,17 +79,13 @@ public class RentalAggrementStep {
         }
         
         Set<String> windowHandles = driver.getWindowHandles();
-       // String parentWindowHandle = windowHandles.iterator().next();
         String currentWindowHandle = windowHandles.toArray(new String[0])[windowHandles.size() - 1];
         driver.switchTo().window(currentWindowHandle);
-
-        // Wait for the element to be visible before interacting with it
         WebElement availabilityOption = wait.until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("//*[@id='modalContent']/div/div/div[2]/div[2]/div[3]")));
 
         boolean check = availabilityOption.isDisplayed();
         Assert.assertTrue(check, "Element Not Visible");
-        //driver.switchTo().window(parentWindowHandle);
     }
     
     @Then("Click on chennai")
@@ -85,99 +94,10 @@ public class RentalAggrementStep {
         if (driver == null) {
             driver = SetupDefination.getDriver();  // Re-initialize the driver if needed
         }
-
         WebElement chennai = driver.findElement(By.xpath("//*[@id='modalContent']/div/div/div[2]/div[2]/div[3]"));
         chennai.click();
     }
-
-    //Scenario 3
-//    @When("the user clicks on the Renew Your Agreement section")
-//    public void the_user_clicks_on_the_section() throws Exception {
-//        // Ensure the rentalAgreementPage is initialized before calling any method on it
-//        if (rentalAgreementPage != null) {
-//            rentalAgreementPage.clickRenewYourAgreementSection();  // This will now work
-//        } else {
-//            throw new NullPointerException("rentalAgreementPage is not initialized.");
-//        }
-//    }
-//    
-//    @Then("the text {string} should be visible")
-//    public void the_text_should_be_visible(String expectedText) {
-//        WebElement rentalAgreementTextElement = rentalAgreementPage.getRentalAgreementText();
-//        assert rentalAgreementTextElement.getText().equals(expectedText) : "Expected text not displayed";
-//    }
-//
-//    @Then("the icons for Rental Agreement and Next Day Delivery should be displayed correctly")
-//    public void the_icons_for_rental_agreement_and_next_day_delivery_should_be_displayed_correctly() {
-//        By nextDayDeliveryIcon = By.xpath("//span[contains(@class, 'nb__sk2nG') and contains(text(), 'Next Day Delivery')]");
-//
-//        // Verify Next Day Delivery icon is displayed
-//        WebElement nextDayDeliveryElement = driver.findElement(nextDayDeliveryIcon);
-//        Assert.assertTrue(nextDayDeliveryElement.isDisplayed(), "Next Day Delivery icon is not displayed correctly");
-//
-//        System.out.println("Rental Agreement and Next Day Delivery icons are displayed correctly.");
-//    }
-//
-//    @Given("the user is on the Rental Agreement page")
-//    public void the_user_is_on_the_rental_agreement_page() {
-//        WebElement rentalAgreementLink = rentalAgreementPage.getRentalAgreementLink();
-//        assert rentalAgreementLink.isDisplayed() : "Rental Agreement page not displayed";
-//    }
-//
-//    @When("the user clicks on the Home icon")
-//    public void the_user_clicks_on_the_home_icon() {
-//        rentalAgreementPage.navigateToHomePage();
-//    }
-//
-//    @Then("the user should be redirected to the Home page")
-//    public void the_user_should_be_redirected_to_the_home_page() {
-//        WebElement homePageHeader = driver.findElement(By.tagName("h1"));
-//        assert homePageHeader.getText().equals("Welcome to Home Page") : "User not redirected to Home page";
-//    }
-//
-//    @Given("the user is on the Legal Services page")
-//    public void the_user_is_on_the_legal_services_page() {
-//        // Initialize WebDriver
-//        driver = SetupDefination.getDriver();
-//
-//        // Initialize the RentalAgreementPage
-//        rentalAgreementPage = new RentalAgreementPage(driver);
-//
-//        // Navigate to the Legal Services page
-//        driver.get("https://www.nobroker.in/legal-services");  // Update with the correct URL
-//    }
-//
-//    @Then("the user should be redirected to the EnterMobileNumber page")
-//    public void the_user_should_be_redirected_to_the_enter_mobile_number_page() {
-//        // Specify the expected URL of the EnterMobileNumber page
-//       String expectedUrl = "https://www.nobroker.in/rental-agreement-in-chennai?nbFr=home_top_card";  // Update with the correct URL
-//       
-//
-//        // Assert that the current URL matches the expected URL
-//       Assert.assertEquals(driver.getCurrentUrl(), expectedUrl, "User is not redirected to the Enter Mobile Number page.");
-//        
-//        System.out.println("User successfully redirected to the Enter Mobile Number page.");
-//    }
-    
-    @Then("Click on Banglore")
-    public void click_on_Banglore() {
-    	
-        // Ensure driver is initialized
-        if (driver == null) {
-            driver = SetupDefination.getDriver();  // Re-initialize the driver if needed
-        }
-        WebElement Banglore = driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[2]/div[2]/div[1]/img"));
-        Banglore.click();
-    }
-
-
-
-    @Then("the user clicks on My Bookings")
-    public void the_user_clicks_on_my_bookings() {
-        // Write code here that turns the phrase above into concrete actions
-    	 driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div/header/nav/div[2]/button/span")).click();
-    }
-///scnerio 4
+//Scenario 3
     @Then("Click on Pune")
     public void click_on_Pune() {
     	
@@ -188,8 +108,6 @@ public class RentalAggrementStep {
         WebElement Pune = driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[2]/div[2]/div[4]/img"));
         Pune.click();
     }
-
-
 
     @Then("the user should be redirected to the Sign-Up page")
     public void the_user_should_be_redirected_to_the_sign_up_page() {
@@ -216,7 +134,115 @@ public class RentalAggrementStep {
         // Verify if the current page URL is about:blank
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.nobroker.in/rental-agreement-in-pune?nbFr=home_top_card", "The user is not redirected to about:blank!");
     }
-}
+//   Scenario 4
+    @Then("Click on Banglore")
+    public void click_on_Banglore() {
+    	
+        // Ensure driver is initialized
+        if (driver == null) {
+            driver = SetupDefination.getDriver();  // Re-initialize the driver if needed
+        }
+        WebElement Banglore = driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[2]/div[2]/div[1]/img"));
+        Banglore.click();
+    }
+    @Then("the user clicks on My Bookings")
+    public void the_user_clicks_on_my_bookings() {
+       
+    	 driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div/div/header/nav/div[2]/button/span")).click();
+    }
+    @Then("the user is on the Sign-Up Page")
+    public void the_user_is_on_the_sign_up_page() {
+    	 driver = SetupDefination.getDriver();
+         wait = new WebDriverWait(driver, Duration.ofSeconds(10));  // Initialize WebDriverWait here after driver
+         driver.get("https://www.nobroker.in/rental-agreement-in-hyderabad?nbFr=home_top_card");
+         rentalAgreementPage = new RentalAgreementPage(driver);
+    }
+    @Then("the user enters the name {string}")
+    public void the_user_enters_the_name(String name) {
+            RentalAgreementPage.enterName(name);  // Call the method in FormPage to input the name into the form
+         new io.cucumber.java.PendingException();
+    }
+    
+
+    // Step: Enter phone number
+    @Then("the user enters the phone number {string}")
+    public void the_user_enters_the_phone_number(String phoneNumber) {
+    	RentalAgreementPage.enterPhoneNumber(phoneNumber);  // Calling FormPage method to enter phone number
+    }
+
+    // Step: Enter email
+    @Then("the user enters the email {string}")
+    public void the_user_enters_the_email(String email) {
+    	RentalAgreementPage.enterEmail(email);  // Calling FormPage method to enter email
+    }
+
+    // Step: Click continue button
+    @Then("the user clicks on continue")
+    public void the_user_clicks_on_continue() {
+        RentalAgreementPage.clickContinue();  // Calling FormPage method to click the continue button
+    }
+
+    // Step: Verify form submission success
+    @Then("the form should be submitted successfully")
+    public void the_form_should_be_submitted_successfully() {
+        Assert.assertTrue(RentalAgreementPage.isFormSubmittedSuccessfully(), "Form was not submitted successfully");  // Verifying the success message
+    }
+
+    // Close WebDriver after test
+    @After
+    public void tearDown() {
+        driver.quit();  // Quit the WebDriver after the test is complete
+    }
+    //
+
+
+@Then("click on Noida")
+public void click_on_noida() throws InterruptedException {
+    	
+        // Ensure driver is initialized
+        if (driver == null) {
+            driver = SetupDefination.getDriver();  // Re-initialize the driver if needed
+        }
+        WebElement Noida = driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[2]/div[2]/div[8]/img"));
+        Noida.click();
+        Thread.sleep(10000);
+    }
+    @Then("clik on Proceed")
+    public void clik_on_proceed() throws InterruptedException {
+      
+     	JavascriptExecutor js = (JavascriptExecutor) driver;
+	             js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//*[@id=\"content-wrapper\"]/div[2]/div/div[2]/div/div[2]/div[1]/div[2]/div[3]/div[5]/span")));
+	             Thread.sleep(10000);
+	             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='content-wrapper']/div[2]/div/div[4]/button[2]"))).click();
+
+             Thread.sleep(10000);
+   }
+
+  @Then("user enters the number")
+    public void user_enters_the_invalid_number() throws InterruptedException {
+        // Call the method in PageActions to enter an invalid number]
+    	WebElement butoon= driver.findElement(By.xpath("//*[@id=\"signUp-phoneNumber\"]"));
+       Actions action = new Actions(driver);
+       action.click(butoon).sendKeys("97813375").perform();
+       Thread.sleep(5000);
+       
+       wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"NewRootRoot\"]/div/div[1]/button"))).click();
+       Thread.sleep(5000);
+       
+     WebElement sub= driver.findElement(By.xpath("//*[@id=\"NewRootRoot\"]/div/div[1]/div[2]/div/span"));
+     boolean chk= sub.isDisplayed();
+     Assert.assertTrue(chk, "Invalid");
+       
+
+    }
+
+    
+
+
+
+    }
+
+    
 
 
 
