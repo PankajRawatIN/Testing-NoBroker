@@ -1,6 +1,9 @@
 package Stepdefinition;
 
 import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
+
+import java.io.IOException;
 
 import org.junit.Assert;
 import org.openqa.selenium.OutputType;
@@ -8,6 +11,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import com.parameters.ExcelReader;
 import com.parameters.PropertiesReader;
 
 import Pages.BasePage;
@@ -59,12 +63,13 @@ public class CareerSetup {
 	
 	
 	@Given("I open the NoBroker homepage")
-	public void i_open_the_no_broker_homepage() {
+	public void i_open_the_no_broker_homepage() throws IOException {
 		System.out.println("testing");
 		// Get WebDriver instance from BaseSteps
 		//driver = new ChromeDriver();  // Initialize WebDriver (you can configure it as per your setup)
 		//driver.manage().window().maximize();
-		driver.get(propertiesReader.getProperty("homepage.url")); 
+//		driver.get(propertiesReader.getProperty("homepage.url")); 
+		driver.get(ExcelReader.geturl());
 		
 //		basepage = new BasePage(driver);
 //		careerpage = new CareerPage(driver);
@@ -100,10 +105,11 @@ public class CareerSetup {
 	@Then("I should see the {string} text on the Career Page")
 	public void i_should_see_the_text_on_the_career_page(String string) {
 		
-		careerpage.gettext();
+		String text=careerpage.gettext();
+
+		assertEquals(text, string);
 
 		
-		//driver.quit();
 	}
 	
 	@Given("I am on the Careerpage")
@@ -298,14 +304,46 @@ public class CareerSetup {
 	public void i_will_get_a_alert_msg() {
 	    // Write code here that turns the phrase above into concrete actions
 	    //throw new io.cucumber.java.PendingException();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(500);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		String text=blogpage.gotalertmsg();
 		assertTrue("you did not get the text from alert",text.contains("Please select"));
+	}
+	
+	
+	
+	@When("I click on the Forward button on blog page")
+	public void i_click_on_the_forward_button_on_blog_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.clickForwardButton();
+	}
+
+	@Then("I should see the next image displayed on blogpage")
+	public void i_should_see_the_next_image_displayed_on_blogpage() {
+	    // Write code here that turns the phrase above into concrete actions
+	   // throw new io.cucumber.java.PendingException();
+		blogpage.isNextImageDisplayed();
+		//assertTrue("Next image is not displayed",text.contains(""));
+	}
+
+	@When("I click on the Backward button on blog page")
+	public void i_click_on_the_backward_button_on_blog_page() {
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new io.cucumber.java.PendingException();
+		blogpage.clickBackwardButton();
+	}
+
+	@Then("I should see the previous image displayed on blogpage")
+	public void i_should_see_the_previous_image_displayed_on_blogpage() {
+	    // Write code here that turns the phrase above into concrete actions
+	   // throw new io.cucumber.java.PendingException();
+		blogpage.isPreviousImageDisplayed();
+	//assertTrue("Next image is not displayed",text.contains(""));
 	}
 	
 	
