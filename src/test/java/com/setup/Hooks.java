@@ -20,11 +20,11 @@ public class Hooks {
 	    
 	 
 
-	    @After
-	    public void tearDown() {
-	    
-	     SetupDefination.quitDriver(); 	
-	    
-
-	    }
+//	    @After
+//	    public void tearDown() {
+//	    
+//	     SetupDefination.quitDriver(); 	
+//	    
+//
+//	    }
 }

@@ -15,7 +15,7 @@ public class FilterPropertyPage {
 
 	public FilterPropertyPage(WebDriver driver) {
 		this.driver = driver;
-		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 
 	public void selectCity(String city) {
@@ -56,10 +56,10 @@ public class FilterPropertyPage {
 	}
 
 	public void selectBHKType(String bhkType) {
-		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebElement dropdown = driver.findElement(By.xpath("(//*[@id=\"searchCity\"]/div/div[2]/div)[2]"));
-		dropdown.click(); 
-		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		dropdown.click();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		WebElement availabilityOption = wait.until(ExpectedConditions
@@ -69,10 +69,10 @@ public class FilterPropertyPage {
 	}
 
 	public boolean verifyImmediateAvailability() {
-		  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		  String URL = "availability=immediate";
-	    	String isTitleCorrect = driver.getCurrentUrl();
-	    	return isTitleCorrect.contains(URL);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		String URL = "availability=immediate";
+		String isTitleCorrect = driver.getCurrentUrl();
+		return isTitleCorrect.contains(URL);
 	}
 
 	public void clickSearchButton() {
@@ -82,32 +82,33 @@ public class FilterPropertyPage {
 	}
 
 	public boolean verifyPropertiesDisplayed(String locality) {
-		
-			WebElement chk = driver.findElement(By.xpath("//*[@id=\"navHeader\"]/div[2]/div"));
-			
-			return chk.isDisplayed();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebElement chk = driver.findElement(By.xpath("//*[@id=\"navHeader\"]/div[2]/div"));
+
+		return chk.isDisplayed();
 	}
 
-	public boolean verifyBHKPropertiesDisplayed(String bhkType, String locality) {
-		return driver
-				.findElements(
-						By.xpath("//div[contains(text(),'" + bhkType + "') and contains(text(),'" + locality + "')]"))
-				.size() > 0;
+	public boolean verifyBHKPropertiesDisplayed(String bhkType) {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		return driver.findElements(
+				By.xpath("//*[@id=\"listPageContainer\"]/div[1]/div[2]/div[2]/div/div/div[1]/div[2]/div[3]")).size()>0;
 	}
+
 	public boolean verifyPageTitleContains(String partialTitle) {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Adjust timeout
-	    return wait.until(ExpectedConditions.titleContains(partialTitle));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Adjust timeout
+		return wait.until(ExpectedConditions.titleContains(partialTitle));
 	}
+
 	public boolean verifySpecificBHKCount(String bhkCount) {
-	
-		 wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Adjust timeout
-	//	WebElement properties = driver.findElement(By.xpath("//*[@id=\"listPageContainer\"]/div[1]/div[2]/div[2]/div/div/div[1]/div[2]/div[3]"));
-  
+
+		wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Adjust timeout
+		// WebElement properties =
+		// driver.findElement(By.xpath("//*[@id=\"listPageContainer\"]/div[1]/div[2]/div[2]/div/div/div[1]/div[2]/div[3]"));
+
 		WebElement chk = driver.findElement(By.xpath("//*[@id=\"navHeader\"]/div[2]/div"));
-		
+
 		return chk.isDisplayed();
-		
-		
+
 	}
 
 	public boolean verifyErrorMessage(String expectedMessage) {

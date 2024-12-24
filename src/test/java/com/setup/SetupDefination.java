@@ -12,12 +12,17 @@ public class SetupDefination {
 
     // Initialize WebDriver (singleton pattern)
     public static WebDriver initializeDriver() {
+    	ChromeOptions options = new ChromeOptions();
+
+        // Add the headless argument
+    	options.addArguments("--headless=new"); // Use "--headless=new" for Chrome 109+
+        options.addArguments("--disable-gpu"); // Necessary for Windows
+        options.addArguments("--no-sandbox");  // Required for some environments
+        options.addArguments("--disable-dev-shm-usage"); // Handle low-memory issues
+        options.addArguments("--window-size=1920,1080"); // Ensure proper viewport size
+        
         if (driver == null) {
-        	ChromeOptions options = new ChromeOptions();
-
-            // Add the headless argument
-            options.addArguments("--headless");
-
+        
             driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             driver.manage().window().maximize();
