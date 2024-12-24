@@ -1,4 +1,4 @@
-package com.setup;
+package com.pages;
 
 import java.time.Duration;
 

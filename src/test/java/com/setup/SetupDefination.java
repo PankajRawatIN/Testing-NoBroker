@@ -23,11 +23,9 @@ public class SetupDefination {
     public static void quitDriver() {
         if (driver != null) {
             driver.quit();
-            driver = null; // Reset the instance
+            driver = null;
         }
     }
-
-    // Getter for the driver
     public static WebDriver getDriver() {
         if (driver == null) {
             driver = initializeDriver();

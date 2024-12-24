@@ -1,12 +1,17 @@
 package com.pages;
  
+import java.time.Duration;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
  
 public class RentalAgreementPage {
  
-    WebDriver driver;
+    static WebDriver driver;
  
     // Constructor
     public RentalAgreementPage(WebDriver driver) {
@@ -94,5 +99,60 @@ public class RentalAgreementPage {
             WebElement helplineButton = driver.findElement(helplineLink);
             helplineButton.click();
         }
-	}
+        public static void enterName(String name) {
+            WebElement nameElement = driver.findElement(By.xpath("//*[@id=\"name\"]"));
+            nameElement.clear();
+            nameElement.sendKeys(name);
+        }
+
+        // Method to enter phone number
+        public static void enterPhoneNumber(String phoneNumber) {
+            WebElement phoneElement = driver.findElement(By.xpath("//*[@id=\"signUp-phoneNumber\"]"));
+            phoneElement.clear();
+            phoneElement.sendKeys(phoneNumber);
+        }
+
+        // Method to enter email
+        public static void enterEmail(String email) {
+            WebElement emailElement = driver.findElement(By.xpath("//*[@id=\"email\"]"));
+            emailElement.clear();
+            emailElement.sendKeys(email);
+        }
+
+        // Method to click the continue button
+        public static void clickContinue() {
+            WebElement continueBtn = driver.findElement(By.xpath("//*[@id=\"NewRootRoot\"]/div/div[1]/button"));
+            continueBtn.click();
+        }
+        // Method to verify if form submission was successful
+        public static boolean isFormSubmittedSuccessfully() {
+            WebElement successMsg = driver.findElement(By.linkText("https://www.nobroker.in/myBookings/legal-services"));
+            return successMsg.isDisplayed();
+        }
+        public void clickOnProceed() {
+        	JavascriptExecutor js = (JavascriptExecutor) driver;
+		             WebElement startPostingButton = driver.findElement(By.xpath("//*[@id=\\\"content-wrapper\\\"]/div[2]/div/div[4]/button[2]"));		             
+		             // Scroll into view
+		             js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//*[@id=\\\"content-wrapper\\\"]/div[2]/div/div[4]/button[2]")));
+		             startPostingButton.click();
+        }
+        public void enterNumber() {
+            WebElement phoneNumberField = driver.findElement(By.xpath("//*[@id=\"signUp-phoneNumber\"]"));
+            phoneNumberField.sendKeys("");  
+        }
+        private static By citySearchInput = By.name("city-search");
+
+        // Method to enter a city name in the search input
+        public static void enterCity(String cityName) {
+            WebElement searchInput = driver.findElement(citySearchInput);
+            searchInput.sendKeys(cityName);
+        }
+
+        // Method to click on a specific city suggestion
+        public static void clickOnCitySuggestion(String cityName) {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));  
+            WebElement suggestion = driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[1]/div[4]/div"));
+            suggestion.click();
+        }
+ }
 	

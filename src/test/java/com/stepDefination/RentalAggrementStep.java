@@ -1,10 +1,14 @@
 package com.stepDefination;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,23 +17,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.pages.RentalAgreementPage;
+import com.parameters.ExcelReader;
+import com.parameters.FileReading;
 import com.setup.SetupDefination;
 
 import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class RentalAggrementStep {
-
     WebDriver driver;
+    Properties prop;
     RentalAgreementPage rentalAgreementPage;
     WebDriverWait wait;
+    ExcelReader excelReader;
     public WebElement waitForElementVisible(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15)); // Increase timeout as needed
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
-
     // Method to click on the element after waiting for visibility
     public void clickOnRentalAgreement() {
         By rentalAgreementLocator = By.xpath("//*[@id='modalContent']/div/div/div[2]/div[2]/div[3]");
@@ -38,10 +45,11 @@ public class RentalAggrementStep {
     }
     //Background
     @Given("the user is on the Home page")
-    public void the_user_is_on_the_home_page() {
+    public void the_user_is_on_the_home_page() throws IOException {
+    	prop=FileReading.reader();
         driver = SetupDefination.getDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));  // Initialize WebDriverWait here after driver
-        driver.get("https://www.nobroker.in/");
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10)); 
+        driver.get(excelReader.geturl());
         rentalAgreementPage = new RentalAgreementPage(driver);
     }
     
@@ -49,35 +57,29 @@ public class RentalAggrementStep {
     public void the_user_clicks_on_the_rental_agreement() {
         rentalAgreementPage.clickRentalAgreementLink();
     }
-
     //Scenario 1
-    
     @Then("the user should see Rental Agreement icon displayed correctly")
     public void the_user_should_see_rental_agreement_icon_displayed_correctly() {
         // Define locators for the icons
-        By rentalAgreementIcon = By.xpath("//div[contains(@class, 'nb__1IQvp')]//span[contains(text(), 'Rental Agreement')]"); // Update with the actual ID or locator for the Rental Agreement icon
-
+        By rentalAgreementIcon = By.xpath("//div[contains(@class, 'nb__1IQvp')]//span[contains(text(), 'Rental Agreement')]"); 
         // Verify Rental Agreement icon is displayed
         WebElement rentalAgreementElement = driver.findElement(rentalAgreementIcon);
         Assert.assertTrue(rentalAgreementElement.isDisplayed(), "Rental Agreement icon is not displayed correctly");
 
         System.out.println("Rental Agreement and Next Day Delivery icons are displayed correctly.");
     }
-
     //Scenario 2 
     @Then("the Next Day Delivery icon should be displayed correctly")
     public void the_next_day_delivery_icon_should_be_displayed_correctly() {
         WebElement deliveryIconElement = rentalAgreementPage.getDeliveryIcon();
         assert deliveryIconElement.isDisplayed() : "Delivery Icon not displayed";
     }
-    
     @Then("Multiple citites Option Should be visible")
     public void multiple_citites_option_should_be_visible(){
         // Ensure driver is initialized
         if (driver == null) {
-            driver = SetupDefination.getDriver();  // Re-initialize the driver if needed
+            driver = SetupDefination.getDriver(); 
         }
-        
         Set<String> windowHandles = driver.getWindowHandles();
         String currentWindowHandle = windowHandles.toArray(new String[0])[windowHandles.size() - 1];
         driver.switchTo().window(currentWindowHandle);
@@ -87,12 +89,11 @@ public class RentalAggrementStep {
         boolean check = availabilityOption.isDisplayed();
         Assert.assertTrue(check, "Element Not Visible");
     }
-    
     @Then("Click on chennai")
     public void click_on_chennai() {
         // Ensure driver is initialized
         if (driver == null) {
-            driver = SetupDefination.getDriver();  // Re-initialize the driver if needed
+            driver = SetupDefination.getDriver();
         }
         WebElement chennai = driver.findElement(By.xpath("//*[@id='modalContent']/div/div/div[2]/div[2]/div[3]"));
         chennai.click();
@@ -193,29 +194,26 @@ public class RentalAggrementStep {
     public void tearDown() {
         driver.quit();  // Quit the WebDriver after the test is complete
     }
-    //
-
-
-@Then("click on Noida")
-public void click_on_noida() throws InterruptedException {
-    	
+    //Scenario 5 
+  @Then("click on Noida")
+   public void click_on_noida() throws InterruptedException {
         // Ensure driver is initialized
         if (driver == null) {
-            driver = SetupDefination.getDriver();  // Re-initialize the driver if needed
+            driver = SetupDefination.getDriver();  
         }
         WebElement Noida = driver.findElement(By.xpath("//*[@id=\"modalContent\"]/div/div/div[2]/div[2]/div[8]/img"));
         Noida.click();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
     }
     @Then("clik on Proceed")
     public void clik_on_proceed() throws InterruptedException {
       
      	JavascriptExecutor js = (JavascriptExecutor) driver;
 	             js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//*[@id=\"content-wrapper\"]/div[2]/div/div[2]/div/div[2]/div[1]/div[2]/div[3]/div[5]/span")));
-	             Thread.sleep(10000);
+	             Thread.sleep(3000);
 	             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='content-wrapper']/div[2]/div/div[4]/button[2]"))).click();
 
-             Thread.sleep(10000);
+             Thread.sleep(3000);
    }
 
   @Then("user enters the number")
@@ -227,20 +225,33 @@ public void click_on_noida() throws InterruptedException {
        Thread.sleep(5000);
        
        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"NewRootRoot\"]/div/div[1]/button"))).click();
-       Thread.sleep(5000);
+       Thread.sleep(3000);
        
      WebElement sub= driver.findElement(By.xpath("//*[@id=\"NewRootRoot\"]/div/div[1]/div[2]/div/span"));
      boolean chk= sub.isDisplayed();
      Assert.assertTrue(chk, "Invalid");
-       
-
     }
+//parametrised Scenario 6
+  @When("the user should enter {string}")
+  public void the_user_should_enter(String cityName) {
+      RentalAgreementPage.enterCity(cityName);
+  }
 
-    
-
-
-
-    }
+  @Then("the user clicks on Agra option")
+  public void the_user_clicks_on_agra_option() {
+      // Call the method from RentalPage to click on the city suggestion ("Agra")
+	  RentalAgreementPage.clickOnCitySuggestion((String)prop.get("firstCity"));
+  }
+  @After
+  public void doSomethingAfter(Scenario scenario){
+//  	if (scenario.isFailed()) {
+  	    byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+  	    scenario.attach(screenshot, "image/png", "Scenario_Screenshot");
+  	    driver.quit();
+   // }
+  }
+}
+ 
 
     
 

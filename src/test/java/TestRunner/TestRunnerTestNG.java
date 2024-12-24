@@ -7,8 +7,8 @@ import io.cucumber.testng.CucumberOptions;
 
 glue = {"com.stepDefination"},
 
-plugin= {"pretty" , "html:target/htmlreport.html"}		)
+plugin= {"pretty" , "html:target/htmlreport1.html"}		)
 
-public class CucumberTestRunner extends AbstractTestNGCucumberTests{
+public class TestRunnerTestNG extends AbstractTestNGCucumberTests{
 
 }
