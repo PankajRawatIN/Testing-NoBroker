@@ -20,6 +20,7 @@ public class PayRentPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
     //Scenario 4-------------------------------------------------------------------------------------------------
+    
     // Method to click the "Pay Rent" button
     public void clickPayRentButton() {
         WebElement payRentButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='text-header-text-color' and text()='Pay Rent']")));
@@ -30,8 +31,10 @@ public class PayRentPage {
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
+    
     //-----------------------------------------------------------------------------------------------------------------
     //Scenario5--------------------------------------------------------------------------------------------------------
+    
  // Method to select payment type
     public void selectPaymentType() {
         WebElement payMentTypeField = driver.findElement(By.xpath("//span[@class='text-14' and text()='House Rent']"));

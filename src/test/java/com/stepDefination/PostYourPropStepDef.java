@@ -1,18 +1,14 @@
 package com.stepDefination;
 
 
+import java.io.IOException;
 import java.time.Duration;
-import org.junit.Assert;
 
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.AssertJUnit;
 
@@ -20,8 +16,10 @@ import com.pages.PayRentPage;
 import com.pages.PostYourPropInvalidCase;
 import com.pages.PostYourPropertyDetails;
 import com.pages.PostYourPropertyhomePage;
+import com.parameters.ExcelReader;
 
-
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -32,18 +30,16 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 		WebDriver driver;
 		PostYourPropertyhomePage HomePage;
 		PostYourPropertyDetails details;
-		PostYourPropInvalidCase invalidCase;
+		PostYourPropInvalidCase invalidCase; 
 		PayRentPage payRentPage;
+		ExcelReader excelReader = new ExcelReader();
 		
-//		@Before
-//		public void setUP()
-//		{
-//			driver = new ChromeDriver();
-//			driver.manage().window().maximize();
-//			driver.get(" https://www.nobroker.in");
-//			
-//		}
 		
+		@After
+		public void doSomethingAfter(Scenario scenario){
+		    byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+		    scenario.attach(screenshot, "image/png", "name");
+	}
 //Scenario1-------------------------------------------------------------------------------------------------------------------------------------
 		
 		@Given("I am on the homepage of NoBroker")
@@ -81,13 +77,22 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 	        details.openPostYourPropertyPage();
 	    }
+//
+	    @When("I enter valid property details such as name emailid and mobile no")
+	    public void i_enter_valid_property_details_such_as_and() throws IOException, InterruptedException {
 
-	    @When("I enter valid property details such as {string}, {string} and  {string}")
-	    public void i_enter_valid_property_details_such_as_and(String name, String emailId, String mobileNo) throws InterruptedException {
-	       details.enterName(name);
-	       details.enterEmail(emailId);
-	       details.enterMobileNumber(mobileNo);
-	       details.selectCity();
+        // Read data from the Excel sheet
+	    	String name = ExcelReader.getCellValue(0, 0);
+	    	
+	    	// Row 0, Column 0: Name
+	        String emailId = ExcelReader.getCellValue(1, 0); // Row 1, Column 0: Email ID
+	        String mobileNo = ExcelReader.getCellValue(2, 0); // Assuming mobile number is in column 2
+
+        // Use the data in the test
+        details.enterName(name);
+        details.enterEmail(emailId);
+        details.enterMobileNumber(mobileNo);
+        details.selectCity();
 	    }
 
 	    @When("I click on the Start Posting Your Ad for Free button")
@@ -112,9 +117,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 	        invalidCase.openHomePage();
 	    }
 
-	    @When("I enter invalid of property such as {string}, {string} and {string}")
-	    public void i_enter_invalid_property_details(String name, String email, String phoneNumber) throws InterruptedException {
-	        invalidCase.enterInvalidDetails(name, email, phoneNumber);
+	    @When("I enter invalid property details such as name emailid and mobile no")
+	    public void i_enter_invalid_property_details() throws InterruptedException, IOException {
+	        //invalidCase.enterInvalidDetails(name1, email, phoneNumber);
+	        String name1 = ExcelReader.getCellValue(0, 0);
+	        String email = ExcelReader.getCellValue(3, 0); // Row 1, Column 0: Email ID
+	        String mobileNo = ExcelReader.getCellValue(2, 0);
+	        invalidCase.enterInvalidDetails(name1, email, mobileNo);
 	    }
 
 	    @When("I click on Start Posting Your Adds for Free button On Webpage")
@@ -125,7 +134,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 	    @Then("I should see an error message indicating the invalid field")
 	    public void i_should_see_an_error_message_indicating_the_invalid_field() {
 	        boolean isDisplayed = invalidCase.isErrorMessageDisplayed("Enter your Email");
-	        Assert.assertTrue("Error message is not displayed as expected!", isDisplayed);
+	        AssertJUnit.assertTrue("Error message is not displayed as expected!", isDisplayed);
 	    }
 	  
 	
@@ -183,6 +192,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 	        WebDriverManager.chromedriver().setup();
 	        ChromeOptions options = new ChromeOptions();
 	        options.addArguments("--start-maximized", "--disable-notifications");
+	        
 	        driver = new ChromeDriver(options);
 	        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	        
@@ -193,11 +203,17 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 	        payRentPage = new PayRentPage(driver);
 	    }
 
-	    @When("I enter valid details of mine such as {string}, {string} and  {string}")
-	    public void i_enter_valid_details_of_mine_such_as_and(String name, String mobile, String email) throws InterruptedException {
+	    @When("I enter valid details")
+	    public void i_enter_valid_details_of_mine_such_as_and() throws InterruptedException, IOException {
 	        // Use PayRentPage method to enter tenant details
 	        payRentPage.selectPaymentType();
-	        payRentPage.enterTenantDetails(name, mobile, email);
+             String Fullname = ExcelReader.getCellValue(4, 0);
+	    	
+	    	// Row 0, Column 0: Name
+	        String emailId = ExcelReader.getCellValue(1, 0); // Row 1, Column 0: Email ID
+	        String mobileNo = ExcelReader.getCellValue(2, 0); // As
+	        
+	        payRentPage.enterTenantDetails(Fullname, mobileNo,emailId);
 	        payRentPage.clickStartPostingButton();
 	    }
 
@@ -212,12 +228,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 	        // Use PayRentPage method to click the "Get Started" button
 	        payRentPage.clickGetStartedButton();
 	    }
-
-//
-//
-////------------------------------------------------------------------------------------------------------------------------------------------------------
-//	    
 }
+
+////------------------------------------------------------------------------------------------------------------------------------------------------------	    
+
 	
 	
 
