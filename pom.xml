@@ -61,5 +61,11 @@
 			<artifactId>CucumberDemo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>tech.grasshopper</groupId>
+		    <artifactId>extentreports-cucumber7-adapter</artifactId>
+		    <version>1.14.0</version>
+		</dependency>
 	</dependencies>
 </project>

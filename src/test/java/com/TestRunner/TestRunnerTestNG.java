@@ -9,7 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.pages.RentReceiptPageFactory;
-import com.pages.RentReceiptPageOriginal;
+//import com.pages.RentReceiptPageOriginal;
 import com.setup.BaseSteps;
 
 public class TestRunnerTestNG {

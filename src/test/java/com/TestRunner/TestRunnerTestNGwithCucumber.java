@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 		features = "src/test/resources/Features/RentReceipt.feature",
-		glue = "com.stepdefination",
+		glue = "com.stepdefinition",
 		plugin = {"pretty", "html:target/HtmlReportTestNG.html"}
 		)	
 

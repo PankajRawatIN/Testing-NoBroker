@@ -1,14 +1,21 @@
 package com.pages;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+
+import com.google.common.io.Files;
 
 public class RentReceiptPageFactory extends BasePage {
 
@@ -264,4 +271,16 @@ public class RentReceiptPageFactory extends BasePage {
         String expectedContent = "Not having a rent receipt can jeopardise your ability to prove timely rent payments, potentially leading to wrongful eviction claims. Additionally, in India, lacking such receipts can hinder your eligibility to claim HRA deductions, subsequently increasing your tax liability.";
         Assert.assertEquals(actualContent, expectedContent, "FAQ content mismatch.");
     }
+    
+ // To capture a screenshot and save it to the specified file path
+ 	public void screenShot(WebDriver driver, String filePath) {
+ 		File f = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+ 		try 
+ 		{
+ 			Files.copy(f, new File(filePath));
+ 		} 
+ 		catch (IOException e) {
+ 			e.printStackTrace();
+ 		}
+ 	}
 }
