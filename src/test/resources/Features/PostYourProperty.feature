@@ -35,5 +35,18 @@ Feature: Validating post your property features
     When I enter valid details
     Then I click on checkbox
     And I click on the Get Started button
- 
+    
+#Scenario 6:
+Scenario Outline: User clicks on login button and enters mobile number
+    Given I am on Payrent page
+    When I click on the login button
+    And I enter the mobile number "<MobileNumber>"
+    And I click on the continue button
+    Then I should see a message "<Message>"
+
+  Examples:
+    | MobileNumber   | Message                        |
+    | 9140087193     | Mobile number entered          |
+    | 1234567890     | Invalid mobile number format   |
+    | <empty>        | Mobile number cannot be empty  |
     
