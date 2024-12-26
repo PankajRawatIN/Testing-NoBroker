@@ -1,6 +1,7 @@
 package com.pages;
 
 import java.time.Duration;
+import java.util.concurrent.TimeoutException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -80,23 +81,27 @@ public class PropertyAdsPage {
         WebElement cityOption = driver.findElement(By.id("react-select-5-option-1"));
         cityOption.click();
     }
+ 
+    public boolean submitForm() throws TimeoutException {
+        try {
+            // Use JavaScript to scroll the element into view
+            WebElement sub = driver.findElement(By.xpath("//*[@id='app']/div/div/div/div[1]/div/div[2]/div[2]/div/div[2]/div[4]/button"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", sub);
 
-    public void submitForm() {
-        // Set an implicit wait
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+            // Wait until the element is clickable
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.elementToBeClickable(sub));
 
-        // Use JavaScript to scroll the element into view and click it
-        WebElement sub = driver.findElement(By.xpath("//*[@id='app']/div/div/div/div[1]/div/div[2]/div[2]/div/div[2]/div[4]/button"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", sub);
+            // Click the element
+            sub.click();
 
-        // Wait until the element is clickable
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(sub));
-
-        // Click the element
-        sub.click();
+            // Return true if clickable and clicked successfully
+            return true;
+        } catch (Exception e) {
+            // Propagate any exceptions (including TimeoutException)
+            throw e;
+        }
     }
-
 
     public boolean isErrorDisplayed() {
         By errorLocator1 = By.xpath("//*[@id='app']/div/div/div/div[1]/div/div[2]/div[2]/div/div[1]/div[1]/span");

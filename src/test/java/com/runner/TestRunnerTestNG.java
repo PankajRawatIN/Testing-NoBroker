@@ -1,12 +1,14 @@
 package com.runner;
-
+ 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-
-@CucumberOptions(
-    features = "src\\test\\resources\\Features\\Home_Properties.feature",
-    glue = { "com.stepDefination" },
-    plugin = { "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" }
-)
-public class TestRunnerTestNG extends AbstractTestNGCucumberTests {
+ 
+@CucumberOptions(tags="",features= {"src\\test\\resources\\Features"},
+ 
+glue = {"com.stepDefination"},
+ 
+plugin= {"pretty" , "html:target/htmlreport1.html"}		)
+ 
+public class TestRunnerTestNG extends AbstractTestNGCucumberTests{
+ 
 }

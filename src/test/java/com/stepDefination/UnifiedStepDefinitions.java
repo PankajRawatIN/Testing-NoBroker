@@ -1,21 +1,22 @@
 package com.stepDefination;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.TimeoutException;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import com.google.common.io.Files;
 import com.pages.FilterPropertyPage;
 import com.pages.PropertyAdsPage;
 import com.pages.VerifyNoBrokerPage;
 import com.parameters.ExcelReader;
 import com.setup.SetupDefination;
 
+import io.cucumber.java.After;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -38,21 +39,21 @@ public class UnifiedStepDefinitions {
 
     // ========================= Common Utilities =========================
 
-    public static void takeScreenshot(WebDriver driver, String filePath) {
-        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            Files.copy(screenshotFile, new File(filePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void takeScreenshot(WebDriver driver, String filePath) {
+//        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//        try {
+//            Files.copy(screenshotFile, new File(filePath));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // ========================= Filter Property Steps =========================
 
     @Given("I am on the NoBroker property search page")
     public void i_am_on_the_nobroker_property_search_page() throws IOException {
         driver.get(ExcelReader.geturl());
-        takeScreenshot(driver, "C:\\Users\\parawat\\Desktop\\Sprint\\NoBrokerProject\\Screenshots\\Homepage.jpg");
+       
     }
 
     @When("I select {string} as the city")
@@ -151,15 +152,25 @@ public class UnifiedStepDefinitions {
     }
 
     @Then("the form submission should {string}")
-    public void the_form_submission_should(String result) {
-        propertyAdPage.submitForm();
-        boolean isErrorDisplayed = propertyAdPage.isErrorDisplayed();
-       
-         String actual;
-        if(isErrorDisplayed) actual = "be accepted";
-        else actual = "be rejected";
+    public void the_form_submission_should(String result) throws TimeoutException {
+        boolean chk = false;
         
-        Assert.assertEquals(actual , result);
+        try {
+            boolean result2 = propertyAdPage.submitForm();
+            if (result2) {
+            	 boolean isErrorDisplayed = propertyAdPage.isErrorDisplayed();
+                 
+                 String actual;
+                if(isErrorDisplayed) actual = "be accepted";
+                else actual = "be rejected";
+                
+                Assert.assertEquals(actual , result);
+            }
+        } catch (TimeoutException e) {
+            Assert.assertTrue(chk);
+        }
+        
+       
     }
 
     // ========================= Verify NoBroker Page Steps =========================
@@ -212,4 +223,14 @@ public class UnifiedStepDefinitions {
     public void navigate_to_home_page() {
         noBrokerPage.navigateToHomePage();
     }
-}
+
+//    @After
+//    public void doSomethingAfter(Scenario scenario){
+////    	if (scenario.isFailed()) {
+//    	    byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+//    	    scenario.attach(screenshot, "image/png", "Scenario_Screenshot");
+//    	    driver.quit();
+//     // }
+//
+//}
+    }

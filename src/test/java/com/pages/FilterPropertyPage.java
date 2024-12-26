@@ -27,6 +27,8 @@ public class FilterPropertyPage {
 	}
 
 	public void enterLocality(String locality) {
+		
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		WebElement localitySearchBar = driver.findElement(By.xpath("//*[@id=\"listPageSearchLocality\"]")); // Adjust
 																											// locator
 		localitySearchBar.click();
@@ -56,14 +58,14 @@ public class FilterPropertyPage {
 	}
 
 	public void selectBHKType(String bhkType) {
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		WebElement dropdown = driver.findElement(By.xpath("(//*[@id=\"searchCity\"]/div/div[2]/div)[2]"));
 		dropdown.click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		WebElement availabilityOption = wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath("//*[@id=\"react-select-3-option-2\"]/div/label/span")));
+				.visibilityOfElementLocated(By.xpath("//*[@id=\"react-select-3-option-2\"]/div/label/input")));
 		availabilityOption.click();
 
 	}
