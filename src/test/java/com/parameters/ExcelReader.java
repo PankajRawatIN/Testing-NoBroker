@@ -15,11 +15,14 @@ public class ExcelReader {
 
     // Method to get cell data based on row and column from the first sheet
     public static String getCellValue(int rowNum, int colNum) throws IOException  {
+    	
     	String excelFilePath = "src/test/resources/ExcelData/NoBrokerExcel.xlsx";
         FileInputStream fileInputStream = new FileInputStream(new File(excelFilePath));
+        
         Workbook workbook = new XSSFWorkbook(fileInputStream);
         Sheet sheet = workbook.getSheetAt(0); // Default to the first sheet
         Row row = sheet.getRow(rowNum);
+        
         if (row == null) {
             return ""; // Return empty if row is null
         }
@@ -38,7 +41,9 @@ public class ExcelReader {
             default:
                 return "";
         }
-    }   
-}
+    }
 
+    // Close the workbook to release resources
+   
+}
 

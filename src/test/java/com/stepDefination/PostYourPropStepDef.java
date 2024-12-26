@@ -1,14 +1,19 @@
 package com.stepDefination;
 
-
+import org.junit.Assert;
 import java.io.IOException;
 import java.time.Duration;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.AssertJUnit;
 
@@ -17,6 +22,7 @@ import com.pages.PostYourPropInvalidCase;
 import com.pages.PostYourPropertyDetails;
 import com.pages.PostYourPropertyhomePage;
 import com.parameters.ExcelReader;
+import com.parameters.ReadProperties;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
@@ -80,20 +86,23 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 //
 	    @When("I enter valid property details such as name emailid and mobile no")
 	    public void i_enter_valid_property_details_such_as_and() throws IOException, InterruptedException {
-
+	    	
         // Read data from the Excel sheet
-	    	String name = ExcelReader.getCellValue(0, 0);
+	    	//String name = ExcelReader.getCellValue(0, 0);
 	    	
 	    	// Row 0, Column 0: Name
-	        String emailId = ExcelReader.getCellValue(1, 0); // Row 1, Column 0: Email ID
-	        String mobileNo = ExcelReader.getCellValue(2, 0); // Assuming mobile number is in column 2
-
+	        //String emailId = ExcelReader.getCellValue(1, 0); // Row 1, Column 0: Email ID
+	       // String mobileNo = ExcelReader.getCellValue(2, 0); // Assuming mobile number is in column 2
+         String[] value=ReadProperties.Values();
         // Use the data in the test
-        details.enterName(name);
-        details.enterEmail(emailId);
-        details.enterMobileNumber(mobileNo);
+        details.enterName(value[0]);
+        details.enterEmail(value[1]);
+        details.enterMobileNumber(value[2]);
         details.selectCity();
 	    }
+
+        // Close the Excel file
+        
 
 	    @When("I click on the Start Posting Your Ad for Free button")
 	    public void i_click_on_the_start_posting_your_ad_for_free_button() throws InterruptedException {
@@ -185,35 +194,27 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 	    
 //	    ---------------------------------------------------------------------------------------------------------------------------------	
 //	    Scenario 5:----------------------------------------------------------------------------------------------------------------------
-	    
 	    @Given("I am on the Pay Rent page")
 	    public void i_am_on_the_pay_rent_page() {
 	        // Set up WebDriver and navigate to the Pay Rent page
 	        WebDriverManager.chromedriver().setup();
 	        ChromeOptions options = new ChromeOptions();
 	        options.addArguments("--start-maximized", "--disable-notifications");
-	        
 	        driver = new ChromeDriver(options);
 	        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-	        
+
 	        // Open the URL
 	        driver.get("https://www.nobroker.in/pay-property-rent-online?nbFr=home_page");
-	        
+
 	        // Initialize the PayRentPage object
 	        payRentPage = new PayRentPage(driver);
 	    }
 
-	    @When("I enter valid details")
-	    public void i_enter_valid_details_of_mine_such_as_and() throws InterruptedException, IOException {
+	    @When("I enter valid details of mine such as {string},{string} and {string}")
+	    public void i_enter_valid_details_of_mine_such_as_and(String name, String mobile, String email) throws InterruptedException {
 	        // Use PayRentPage method to enter tenant details
 	        payRentPage.selectPaymentType();
-             String Fullname = ExcelReader.getCellValue(4, 0);
-	    	
-	    	// Row 0, Column 0: Name
-	        String emailId = ExcelReader.getCellValue(1, 0); // Row 1, Column 0: Email ID
-	        String mobileNo = ExcelReader.getCellValue(2, 0); // As
-	        
-	        payRentPage.enterTenantDetails(Fullname, mobileNo,emailId);
+	        payRentPage.enterTenantDetails(name, mobile, email);
 	        payRentPage.clickStartPostingButton();
 	    }
 
@@ -228,10 +229,107 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 	        // Use PayRentPage method to click the "Get Started" button
 	        payRentPage.clickGetStartedButton();
 	    }
+
+	    
+	    
+//	    @Given("I am on the Pay Rent page")
+//	    public void i_am_on_the_pay_rent_page() {
+//	        // Set up WebDriver and navigate to the Pay Rent page
+//	        WebDriverManager.chromedriver().setup();
+//	        ChromeOptions options = new ChromeOptions();
+//	        options.addArguments("--start-maximized", "--disable-notifications");
+//
+//	        driver = new ChromeDriver(options);
+//	        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+//
+//	        // Open the URL
+//	        driver.get("https://www.nobroker.in/pay-property-rent-online?nbFr=home_page");
+//
+//	        // Initialize the PayRentPage object
+//	        payRentPage = new PayRentPage(driver);
+//	    }
+//
+//	    @When("I enter valid details of mine such as {string}, {string} and {string}")
+//	    public void i_enter_valid_details_of_mine_such_as(String fullname, String mobileNo, String emailId) throws InterruptedException {
+//	        // Select payment type
+//	        payRentPage.selectPaymentType();
+//
+//	        // Enter tenant details
+//	        payRentPage.enterTenantDetails(fullname, mobileNo, emailId);
+//	    }
+//
+//	    @Then("I click on checkbox")
+//	    public void i_click_on_checkbox() {
+//	        // Click the checkbox
+//	        payRentPage.clickCheckbox();
+//	    }
+//
+//	    @When("I click on the Get Started button")
+//	    public void i_click_on_the_get_started_button() {
+//	        // Click the Get Started button
+//	        payRentPage.clickGetStartedButton();
+//	    }
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//	    Scenario 6:---------------------------------------------------------------------------------------------------------------------------------------
+	    
+
+
+	    @Given("I am on Payrent page")
+	    public void i_am_on_payrent_page() {
+	    	 driver = new ChromeDriver();
+		        driver.get("https://www.nobroker.in/pay-property-rent-online?nbFr=home_page"); // Replace with the actual URL
+		        driver.manage().window().maximize();
+		        System.out.println("Navigated to PayRent page.");
+	    }
+
+	    @When("I click on the login button")
+	    public void i_click_on_the_login_button() {
+	        // Wait for the login button to be clickable
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'px-1p') and contains(@class, 'cursor-pointer')]")));
+	        loginButton.click();
+	        System.out.println("Login button clicked.");
+	    }
+
+	    @When("I enter the mobile number {string}")
+	    public void i_enter_the_mobile_number(String mobileNumber) {
+	        // Wait for the mobile number field to be visible
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        WebElement mobileNumberField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='signUp-phoneNumber']")));
+	        mobileNumberField.sendKeys(mobileNumber);
+	        System.out.println("Entered mobile number: " + mobileNumber);
+	    }
+
+	    @When("I click on the continue button")
+	    public void i_click_on_the_continue_button() {
+	        // Wait for the continue button to be clickable
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        WebElement continueButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='signUpSubmit']")));
+	        continueButton.click();
+	        System.out.println("Continue button clicked successfully.");
+	    }
+
+	    @Then("I should see a message {string}")
+	    public void i_should_see_a_message(String expectedMessage) {
+	        // Wait for the URL to be correct after clicking the continue button
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        wait.until(ExpectedConditions.urlContains("#signup-login"));
+
+	        // Get the current URL to validate it's the correct page
+	        String currentUrl = driver.getCurrentUrl();
+	        System.out.println("Current URL: " + currentUrl);
+
+	        // Define the expected URL
+	        String expectedUrl = "https://www.nobroker.in/pay-property-rent-online?nbFr=home_page#signup-login";
+	        System.out.println("Expected URL: " + expectedUrl);
+
+	        // Assert that the current URL matches the expected URL
+	        Assert.assertTrue("URL did not match", currentUrl.startsWith(expectedUrl));
+	        System.out.println("It redirected to the Pay Rent Page");
+	    }
 }
-
-////------------------------------------------------------------------------------------------------------------------------------------------------------	    
-
 	
 	
 
