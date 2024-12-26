@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="6" passed="6" failed="0" skipped="0">
+<testng-results ignored="0" total="7" passed="6" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-12-24T17:08:58 IST" name="Default suite" finished-at="2024-12-24T17:10:16 IST" duration-ms="78150">
+  <suite started-at="2024-12-26T21:08:54 IST" name="Default suite" finished-at="2024-12-26T21:11:20 IST" duration-ms="146605">
     <groups>
       <group name="cucumber">
         <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test started-at="2024-12-24T17:08:58 IST" name="Default test" finished-at="2024-12-24T17:10:16 IST" duration-ms="78150">
+    <test started-at="2024-12-26T21:08:54 IST" name="Default test" finished-at="2024-12-26T21:11:20 IST" duration-ms="146605">
       <class name="TestRunner.TestRunnerTestNG">
-        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:08:58 IST" name="setUpClass" finished-at="2024-12-24T17:08:59 IST" duration-ms="819" status="PASS">
+        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:08:54 IST" name="setUpClass" finished-at="2024-12-26T21:08:55 IST" duration-ms="985" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@e5c2463]]>
+                <![CDATA[org.testng.TestRunner@5b29ab61]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:08:59 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-24T17:09:08 IST" duration-ms="9018" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:08:55 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-26T21:09:07 IST" duration-ms="12242" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -30,14 +30,14 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA["Rental Agreement Page Interaction"]]>
+                <![CDATA["Rental Agreement page interation"]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:09:08 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-24T17:09:17 IST" duration-ms="9330" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:09:07 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-26T21:09:23 IST" duration-ms="15366" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -46,14 +46,14 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA["Rental Agreement Page Interaction"]]>
+                <![CDATA["Rental Agreement page interation"]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:09:17 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-24T17:09:26 IST" duration-ms="8850" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:09:23 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-26T21:09:39 IST" duration-ms="16035" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -62,14 +62,14 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA["Rental Agreement Page Interaction"]]>
+                <![CDATA["Rental Agreement page interation"]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:09:26 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-24T17:09:36 IST" duration-ms="10017" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:09:39 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-26T21:10:09 IST" duration-ms="30662" status="FAIL">
           <params>
             <param index="0">
               <value>
@@ -78,14 +78,70 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA["Rental Agreement Page Interaction"]]>
+                <![CDATA["Rental Agreement page interation"]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[element not interactable
+  (Session info: chrome=131.0.6778.205)
+Build info: version: '4.27.0', revision: 'd6e718d134'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '23'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [27f76c0da2e09c8a2af334bcbee078e6, clearElement {id=f.D40B486C1577D2BEE871046BFB6DE684.d.EDA5E8BB7EAB81DEE7B23FC9BD7475A6.e.139}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.205, chrome: {chromedriverVersion: 131.0.6778.204 (52183f9e99a..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52076}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52076/devtoo..., se:cdpVersion: 131.0.6778.205, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (27f76c0da2e09c8a2af334bcbee078e6)] -> xpath: //*[@id="name"]]
+Session ID: 27f76c0da2e09c8a2af334bcbee078e6]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=131.0.6778.205)
+Build info: version: '4.27.0', revision: 'd6e718d134'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '23'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [27f76c0da2e09c8a2af334bcbee078e6, clearElement {id=f.D40B486C1577D2BEE871046BFB6DE684.d.EDA5E8BB7EAB81DEE7B23FC9BD7475A6.e.139}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.205, chrome: {chromedriverVersion: 131.0.6778.204 (52183f9e99a..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52076}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52076/devtoo..., se:cdpVersion: 131.0.6778.205, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (27f76c0da2e09c8a2af334bcbee078e6)] -> xpath: //*[@id="name"]]
+Session ID: 27f76c0da2e09c8a2af334bcbee078e6
+at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:129)
+at com.pages.RentalAgreementPage.enterName(RentalAgreementPage.java:111)
+at com.stepDefination.RentalAggrementStep.the_user_enters_the_name(RentalAggrementStep.java:177)
+at ✽.the user enters the name "Ayesha"(file:///C:/Users/Kayesha/Desktop/sprint/NoBrokerProject/src/test/resources/Features/RentalAggrement.feature:34)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:10:09 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-26T21:10:34 IST" duration-ms="25033" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Click on My Bookings and navigate to Sign-Up page"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Rental Agreement page interation"]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:09:36 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-24T17:10:05 IST" duration-ms="29199" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:10:34 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-26T21:11:06 IST" duration-ms="31270" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -94,14 +150,14 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA["Rental Agreement Page Interaction"]]>
+                <![CDATA["Rental Agreement page interation"]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:10:05 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-24T17:10:16 IST" duration-ms="10792" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:11:06 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2024-12-26T21:11:20 IST" duration-ms="14831" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -110,14 +166,14 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA["Rental Agreement Page Interaction"]]>
+                <![CDATA["Rental Agreement page interation"]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-24T17:10:16 IST" name="tearDownClass" finished-at="2024-12-24T17:10:16 IST" duration-ms="51" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:TestRunner.TestRunnerTestNG@757277dc]" started-at="2024-12-26T21:11:20 IST" name="tearDownClass" finished-at="2024-12-26T21:11:20 IST" duration-ms="81" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->

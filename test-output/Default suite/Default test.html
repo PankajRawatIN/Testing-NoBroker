@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>6/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>6/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Dec 24 17:08:58 IST 2024</td>
+<td>Started on:</td><td>Thu Dec 26 21:08:54 IST 2024</td>
 </tr>
-<tr><td>Total time:</td><td>78 seconds (78150 ms)</td>
+<tr><td>Total time:</td><td>146 seconds (146605 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,6 +67,69 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Click on My Bookings and navigate to Sign-Up page", "Rental Agreement page interation"</td>
+<td><div><pre>org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=131.0.6778.205)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [27f76c0da2e09c8a2af334bcbee078e6, clearElement {id=f.D40B486C1577D2BEE871046BFB6DE684.d.EDA5E8BB7EAB81DEE7B23FC9BD7475A6.e.139}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.205, chrome: {chromedriverVersion: 131.0.6778.204 (52183f9e99a..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52076}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52076/devtoo..., se:cdpVersion: 131.0.6778.205, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (27f76c0da2e09c8a2af334bcbee078e6)] -&gt; xpath: //*[@id=&quot;name&quot;]]
+Session ID: 27f76c0da2e09c8a2af334bcbee078e6
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:129)
+	at com.pages.RentalAgreementPage.enterName(RentalAgreementPage.java:111)
+	at com.stepDefination.RentalAggrementStep.the_user_enters_the_name(RentalAggrementStep.java:177)
+	at ✽.the user enters the name &quot;Ayesha&quot;(file:///C:/Users/Kayesha/Desktop/sprint/NoBrokerProject/src/test/resources/Features/RentalAggrement.feature:34)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1688151539", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1688151539'><pre>org.openqa.selenium.ElementNotInteractableException: element not interactable
+  (Session info: chrome=131.0.6778.205)
+Build info: version: &apos;4.27.0&apos;, revision: &apos;d6e718d134&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [27f76c0da2e09c8a2af334bcbee078e6, clearElement {id=f.D40B486C1577D2BEE871046BFB6DE684.d.EDA5E8BB7EAB81DEE7B23FC9BD7475A6.e.139}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 131.0.6778.205, chrome: {chromedriverVersion: 131.0.6778.204 (52183f9e99a..., userDataDir: C:\Windows\SystemTemp\scope...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:52076}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:52076/devtoo..., se:cdpVersion: 131.0.6778.205, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (27f76c0da2e09c8a2af334bcbee078e6)] -&gt; xpath: //*[@id=&quot;name&quot;]]
+Session ID: 27f76c0da2e09c8a2af334bcbee078e6
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:190)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:129)
+	at com.pages.RentalAgreementPage.enterName(RentalAgreementPage.java:111)
+	at com.stepDefination.RentalAggrementStep.the_user_enters_the_name(RentalAggrementStep.java:177)
+	at ✽.the user enters the name &quot;Ayesha&quot;(file:///C:/Users/Kayesha/Desktop/sprint/NoBrokerProject/src/test/resources/Features/RentalAggrement.feature:34)
+</pre></div></td>
+<td>30</td>
+<td>TestRunner.TestRunnerTestNG@757277dc</td></tr>
+</table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -76,34 +139,34 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Click on My Bookings and navigate to Sign-Up page", "Rental Agreement Page Interaction"</td>
+<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Click on the helpline link and verify redirection to about:blank page", "Rental Agreement page interation"</td>
 <td></td>
-<td>10</td>
+<td>31</td>
 <td>TestRunner.TestRunnerTestNG@757277dc</td></tr>
 <tr>
-<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Click on the helpline link and verify redirection to about:blank page", "Rental Agreement Page Interaction"</td>
+<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Search and select a city", "Rental Agreement page interation"</td>
 <td></td>
-<td>29</td>
+<td>14</td>
 <td>TestRunner.TestRunnerTestNG@757277dc</td></tr>
 <tr>
-<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "User views Next Day Delivery option", "Rental Agreement Page Interaction"</td>
+<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "User views Next Day Delivery option", "Rental Agreement page interation"</td>
 <td></td>
-<td>9</td>
+<td>15</td>
 <td>TestRunner.TestRunnerTestNG@757277dc</td></tr>
 <tr>
-<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Click on the helpline link and verify redirection to about:blank page", "Rental Agreement Page Interaction"</td>
+<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "User clicks on Rental Agreement and views next day delivery option", "Rental Agreement page interation"</td>
 <td></td>
-<td>8</td>
+<td>12</td>
 <td>TestRunner.TestRunnerTestNG@757277dc</td></tr>
 <tr>
-<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "User clicks on Rental Agreement and views next day delivery option", "Rental Agreement Page Interaction"</td>
+<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Click on My Bookings and navigate to Sign-Up page", "Rental Agreement page interation"</td>
 <td></td>
-<td>9</td>
+<td>25</td>
 <td>TestRunner.TestRunnerTestNG@757277dc</td></tr>
 <tr>
-<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Search and select a city", "Rental Agreement Page Interaction"</td>
+<td title='TestRunner.TestRunnerTestNG.runScenario()'><b>runScenario</b><br>Test class: TestRunner.TestRunnerTestNG<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Click on the helpline link and verify redirection to about:blank page", "Rental Agreement page interation"</td>
 <td></td>
-<td>10</td>
+<td>16</td>
 <td>TestRunner.TestRunnerTestNG@757277dc</td></tr>
 </table><p>
 </body>

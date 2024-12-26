@@ -99,18 +99,19 @@ public class RentalAgreementPage {
             WebElement helplineButton = driver.findElement(helplineLink);
             helplineButton.click();
         }
+
+        // Method to enter phone number
+        public static void enterPhoneNumber(String phoneNumber) {
+            WebElement phoneElement = driver.findElement(By.xpath("//*[@id=\"signUp-phoneNumber\"]"));
+            //phoneElement.clear();
+            phoneElement.sendKeys(phoneNumber);
+        }
         public static void enterName(String name) {
             WebElement nameElement = driver.findElement(By.xpath("//*[@id=\"name\"]"));
             nameElement.clear();
             nameElement.sendKeys(name);
         }
 
-        // Method to enter phone number
-        public static void enterPhoneNumber(String phoneNumber) {
-            WebElement phoneElement = driver.findElement(By.xpath("//*[@id=\"signUp-phoneNumber\"]"));
-            phoneElement.clear();
-            phoneElement.sendKeys(phoneNumber);
-        }
 
         // Method to enter email
         public static void enterEmail(String email) {

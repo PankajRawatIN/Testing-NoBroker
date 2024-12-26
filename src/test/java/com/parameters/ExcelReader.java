@@ -2,6 +2,7 @@ package com.parameters;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -29,6 +30,24 @@ public class ExcelReader {
 		cell10 = rw.getCell(0);
 		url = cell10.getStringCellValue();
 		return url;
+	}
+	public static String getDetails()  {
+		f = new File(System.getProperty("user.dir") + "//ExcelData//NBData.xlsx");
+		try {
+			fis = new FileInputStream(f);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			wb = new XSSFWorkbook(fis);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // to call the value from workbook
+		sheet = wb.getSheetAt(1); 
+		return sheet.getRow(1).getCell(0).getStringCellValue();
+		
 	}
 
 }
